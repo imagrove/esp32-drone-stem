@@ -1,7 +1,21 @@
 ---
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { defaultLang, ui } from '../i18n/ui';
 
-const lang = getLangFromUrl(Astro.url);
+// Detect language from URL
+// For tutorial pages: /tutorials/{lang}/...
+// For other pages: / or /zh/
+const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+let lang = defaultLang;
+
+if (pathParts[0] === 'tutorials' && pathParts[1] && pathParts[1] in ui) {
+  // Tutorial page: /tutorials/zh/...
+  lang = pathParts[1] as keyof typeof ui;
+} else if (pathParts[0] && pathParts[0] in ui) {
+  // Root level: /zh/...
+  lang = pathParts[0] as keyof typeof ui;
+}
+
 const t = useTranslations(lang);
 
 const isZh = lang === 'zh';
