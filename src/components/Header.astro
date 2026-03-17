@@ -1,0 +1,30 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const isZh = lang === 'zh';
+
+// Get current path for active link highlighting
+const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/' || currentPath === '/zh/';
+const isTutorials = currentPath.includes('/tutorials');
+const isHardware = currentPath.includes('/hardware');
+const isDownloads = currentPath.includes('/downloads');
+---
+
+<header style="background: white; border-bottom: 1px solid var(--border); padding: 1rem 2rem;">
+    <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
+        <a href={isZh ? "/zh/" : "/"} style="font-weight: 700; font-size: 1.25rem; color: var(--text-dark);">ESP32 Drone</a>
+        <div style="display: flex; gap: 2rem;">
+            <a href={isZh ? "/zh/" : "/"} style={isHome ? "font-weight: 600;" : ""}>{t('nav.home')}</a>
+            <a href={isZh ? "/zh/tutorials" : "/tutorials"} style={isTutorials ? "font-weight: 600;" : ""}>{t('nav.tutorials')}</a>
+            <a href={isZh ? "/zh/hardware" : "/hardware"} style={isHardware ? "font-weight: 600;" : ""}>{t('nav.hardware')}</a>
+            <a href={isZh ? "/zh/downloads" : "/downloads"} style={isDownloads ? "font-weight: 600;" : ""}>{t('nav.downloads')}</a>
+        </div>
+        <div>
+            <a href={isZh ? "/" : "/zh/"}>{t('nav.lang')}</a>
+        </div>
+    </nav>
+</header>

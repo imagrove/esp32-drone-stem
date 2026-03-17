@@ -1,26 +1,15 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
 ---
 
-<Layout 
+<Layout
     title="高级教程：飞行科学家 - ESP32 Drone"
     description="ESP32 无人机高级教程。算法设计、AI 集成和自主导航。"
     lang="zh"
 >
-    <header style="background: white; border-bottom: 1px solid var(--border); padding: 1rem 2rem;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-            <a href="/zh/" style="font-weight: 700; font-size: 1.25rem; color: var(--text-dark);">ESP32 Drone</a>
-            <div style="display: flex; gap: 2rem;">
-                <a href="/zh/">首页</a>
-                <a href="/zh/tutorials" style="font-weight: 600;">教程</a>
-                <a href="/zh/hardware">硬件</a>
-                <a href="/zh/downloads">下载</a>
-            </div>
-            <div>
-                <a href="/tutorials/advanced">EN</a>
-            </div>
-        </nav>
-    </header>
+    <Header />
     
     <main style="max-width: 1200px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 250px 1fr; gap: 2rem;">
         <!-- Sidebar -->
@@ -85,34 +74,5 @@ import Layout from '../../../layouts/Layout.astro';
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer style="background: var(--primary); color: white; padding: 2rem; margin-top: 4rem;">
-        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-            <!-- Contact -->
-            <div>
-                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">联系我们</h4>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <a href="https://wa.me/8618601106543" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                        <span>📱</span> WhatsApp: +86 18601106543
-                    </a>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span>💬</span> 微信: +86 18601106543
-                    </div>
-                </div>
-            </div>
-
-            <!-- Social -->
-            <div>
-                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">YouTube</h4>
-                <a href="https://www.youtube.com/@imagrove" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                    <span>▶️</span> @imagrove
-                </a>
-            </div>
-
-            <!-- Copyright -->
-            <div style="display: flex; align-items: flex-end;">
-                <p style="font-size: 0.9rem; opacity: 0.8;">© 2026 ESP32 Drone. 保留所有权利。</p>
-            </div>
-        </div>
-    </footer>
+    <Footer />
 </Layout>

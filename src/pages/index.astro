@@ -1,5 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -8,25 +10,12 @@ const t = useTranslations(lang);
 const isZh = lang === 'zh';
 ---
 
-<Layout 
+<Layout
     title={isZh ? "ESP32 Drone - 开源无人机 STEM 教育平台 | 无人机教育套件" : "ESP32 Drone Kit for STEM Education | Open Source Programmable Drone"}
     description={isZh ? "基于 ESP32 的开源无人机教育平台，支持 Wi-Fi 手机控制。从组装到 AI 编程的完整 STEM 课程体系，适合教育机构和创客使用。" : "Open source ESP32 drone kit for STEM education. Programmable drone with Wi-Fi control, complete tutorials from assembly to AI. Ideal for schools, makers, and drone education programs."}
     lang={lang}
 >
-    <header style="background: white; border-bottom: 1px solid var(--border); padding: 1rem 2rem;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-            <a href={isZh ? "/zh/" : "/"} style="font-weight: 700; font-size: 1.25rem; color: var(--text-dark);">ESP32 Drone</a>
-            <div style="display: flex; gap: 2rem;">
-                <a href={isZh ? "/zh/" : "/"} style="font-weight: 600;">{t('nav.home')}</a>
-                <a href={isZh ? "/zh/tutorials" : "/tutorials"}>{t('nav.tutorials')}</a>
-                <a href={isZh ? "/zh/hardware" : "/hardware"}>{t('nav.hardware')}</a>
-                <a href={isZh ? "/zh/downloads" : "/downloads"}>{t('nav.downloads')}</a>
-            </div>
-            <div>
-                <a href={isZh ? "/" : "/zh/"}>{t('nav.lang')}</a>
-            </div>
-        </nav>
-    </header>
+    <Header />
     
     <main style="max-width: 1200px; margin: 0 auto; padding: 4rem 2rem;">
         <!-- Hero -->
@@ -160,34 +149,5 @@ const isZh = lang === 'zh';
         </section>
     </main>
     
-    <!-- Footer -->
-    <footer style="background: var(--primary); color: white; padding: 2rem; margin-top: 4rem;">
-        <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
-            <!-- Contact -->
-            <div>
-                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">{t('footer.contact')}</h4>
-                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-                    <a href="https://wa.me/8618601106543" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                        <span>📱</span> {t('footer.whatsapp')}: +86 18601106543
-                    </a>
-                    <div style="display: flex; align-items: center; gap: 0.5rem;">
-                        <span>💬</span> {t('footer.wechat')}: +86 18601106543
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Social -->
-            <div>
-                <h4 style="margin-bottom: 1rem; font-size: 1.1rem;">YouTube</h4>
-                <a href="https://www.youtube.com/@imagrove" target="_blank" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-                    <span>▶️</span> @imagrove
-                </a>
-            </div>
-            
-            <!-- Copyright -->
-            <div style="display: flex; align-items: flex-end;">
-                <p style="font-size: 0.9rem; opacity: 0.8;">{t('footer.copyright')}</p>
-            </div>
-        </div>
-    </footer>
+    <Footer />
 </Layout>

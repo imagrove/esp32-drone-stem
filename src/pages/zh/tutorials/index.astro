@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 
-// Get first beginner tutorial for default redirect
+// Get first beginner tutorial for default redirect (Chinese)
 const tutorials = await getCollection('tutorials', ({ data }) => {
-  return data.draft !== true && data.level === 'beginner' && data.lang === 'en';
+  return data.draft !== true && data.level === 'beginner' && data.lang === 'zh';
 });
 
 tutorials.sort((a, b) => a.data.order - b.data.order);

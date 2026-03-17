@@ -1,6 +1,11 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import TutorialSidebar from '../../components/TutorialSidebar.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import { defaultLang, ui } from '../../i18n/ui';
 
 export async function getStaticPaths() {
   const tutorials = await getCollection('tutorials');
@@ -12,59 +17,95 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
+// Detect language from URL - tutorials are at /tutorials/{lang}/...
+const pathParts = Astro.url.pathname.split('/');
+const langIndex = pathParts.indexOf('tutorials') + 1;
+const lang = (langIndex < pathParts.length && pathParts[langIndex] in ui) 
+  ? pathParts[langIndex] as keyof typeof ui 
+  : defaultLang;
+const t = useTranslations(lang);
 ---
 
-<Layout 
+<Layout
     title={`${entry.data.title} - ESP32 Drone Tutorial`}
     description={entry.data.description}
-    lang="en"
+    lang={lang}
 >
-    <header style="background: white; border-bottom: 1px solid var(--border); padding: 1rem 2rem;">
-        <nav style="max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center;">
-            <a href="/" style="font-weight: 700; font-size: 1.25rem; color: var(--text-dark);">ESP32 Drone</a>
-            <div style="display: flex; gap: 2rem;">
-                <a href="/">Home</a>
-                <a href="/tutorials">Tutorials</a>
-                <a href="/hardware">Hardware</a>
-                <a href="/downloads">Downloads</a>
-            </div>
-        </nav>
-    </header>
-    
-    <div style="max-width: 1200px; margin: 0 auto; padding: 2rem; display: grid; grid-template-columns: 250px 1fr; gap: 2rem;">
-        <!-- Sidebar -->
-        <aside style="border-right: 1px solid var(--border); padding-right: 1rem;">
-            <h3 style="margin-bottom: 1rem; font-size: 0.9rem; text-transform: uppercase; color: var(--text-light);">
-                Beginner Tutorial
-            </h3>
-            <nav style="display: flex; flex-direction: column; gap: 0.5rem;">
-                <a href="#overview" style="font-size: 0.9rem;">Overview</a>
-                <a href="#materials" style="font-size: 0.9rem;">Materials</a>
-                <a href="#assembly" style="font-size: 0.9rem;">Assembly</a>
-                <a href="#firmware" style="font-size: 0.9rem;">Firmware</a>
-                <a href="#first-flight" style="font-size: 0.9rem;">First Flight</a>
-            </nav>
-        </aside>
-        
+    <Header />
+
+    <div style="display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 70px);">
+        <TutorialSidebar />
+
         <!-- Content -->
-        <main>
+        <main style="padding: 2rem; max-width: 800px;">
             <div style="margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);">
                 <span style="font-size: 0.85rem; color: var(--text-light); text-transform: uppercase;">
                     {entry.data.level} Level
                 </span>
-                <h1 style="margin: 0.5rem 0;">{entry.data.title}</h1>
-                <p style="color: var(--text-medium);">{entry.data.description}</p>
+                <h1 style="margin: 0.5rem 0; font-size: 2rem;">{entry.data.title}</h1>
+                <p style="color: var(--text-medium); font-size: 1.1rem;">{entry.data.description}</p>
                 <div style="display: flex; gap: 1rem; margin-top: 1rem; font-size: 0.85rem; color: var(--text-light);">
-                    <span>Duration: {entry.data.duration}</span>
-                    {entry.data.prerequisites && (
-                        <span>Prerequisites: {entry.data.prerequisites.join(', ')}</span>
+                    <span>⏱️ {entry.data.duration}</span>
+                    {entry.data.prerequisites && entry.data.prerequisites.length > 0 && (
+                        <span>📋 {entry.data.prerequisites.join(', ')}</span>
                     )}
                 </div>
             </div>
-            
-            <article style="line-height: 1.8;">
+
+            <article class="tutorial-content" style="line-height: 1.8; font-size: 1rem;">
                 <Content />
             </article>
+
+            <!-- Navigation -->
+            <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between;">
+                <a href="/tutorials" style="color: var(--text-medium);">← {t('nav.tutorials')}</a>
+            </div>
         </main>
     </div>
+    <Footer />
 </Layout>
+
+<style>
+    .tutorial-content :global(h2) {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-size: 1.5rem;
+        color: var(--text-dark);
+    }
+    .tutorial-content :global(h3) {
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+        font-size: 1.25rem;
+        color: var(--text-dark);
+    }
+    .tutorial-content :global(p) {
+        margin-bottom: 1rem;
+    }
+    .tutorial-content :global(ul), .tutorial-content :global(ol) {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+    }
+    .tutorial-content :global(li) {
+        margin-bottom: 0.5rem;
+    }
+    .tutorial-content :global(code) {
+        background: var(--bg-light);
+        padding: 0.2rem 0.4rem;
+        border-radius: 4px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9em;
+    }
+    .tutorial-content :global(pre) {
+        background: #1E293B;
+        color: #E2E8F0;
+        padding: 1rem;
+        border-radius: var(--radius);
+        overflow-x: auto;
+        margin-bottom: 1rem;
+    }
+    .tutorial-content :global(pre code) {
+        background: transparent;
+        padding: 0;
+    }
+</style>

@@ -1,0 +1,111 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { defaultLang, ui } from '../i18n/ui';
+
+// Detect language from URL - tutorials are at /tutorials/{lang}/...
+const pathParts = Astro.url.pathname.split('/');
+const langIndex = pathParts.indexOf('tutorials') + 1;
+const lang = (langIndex < pathParts.length && pathParts[langIndex] in ui) 
+  ? pathParts[langIndex] as keyof typeof ui 
+  : defaultLang;
+const t = useTranslations(lang);
+
+// Get current path to highlight active item
+const currentPath = Astro.url.pathname;
+const currentSlug = currentPath.replace('/tutorials/', '').replace(/\/$/, '');
+
+// Get current level from slug (e.g., "zh/beginner/01-first-flight" -> "beginner")
+const currentLevel = currentSlug.split('/')[1];
+
+// Get all tutorials for this language
+const allTutorials = await getCollection('tutorials', ({ data }) => {
+  return data.draft !== true && data.lang === lang;
+});
+
+// Group by level
+const levels = ['beginner', 'intermediate', 'advanced'] as const;
+const tutorialsByLevel = levels.map(level => {
+  const levelTutorials = allTutorials
+    .filter(t => t.data.level === level)
+    .sort((a, b) => a.data.order - b.data.order);
+  return { level, tutorials: levelTutorials };
+});
+
+const levelLabels: Record<string, string> = {
+  beginner: t('courses.beginner.title'),
+  intermediate: t('courses.intermediate.title'),
+  advanced: t('courses.advanced.title'),
+};
+
+// Check if level is expanded (current level or has active tutorial)
+const isExpanded = (level: string) => level === currentLevel;
+---
+
+<aside style="border-right: 1px solid var(--border); padding: 1.5rem; height: calc(100vh - 70px); overflow-y: auto; position: sticky; top: 70px;">
+  <nav>
+    {tutorialsByLevel.map(({ level, tutorials }) => (
+      tutorials.length > 0 && (
+        <div style="margin-bottom: 0.5rem;" class="level-group" data-level={level} data-expanded={isExpanded(level)}>
+          <button 
+            class="level-toggle"
+            style="width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; background: transparent; border: none; cursor: pointer; font-size: 0.85rem; text-transform: uppercase; color: var(--text-light); font-weight: 600; border-radius: var(--radius);"
+            onclick={`toggleLevel('${level}')`}
+          >
+            <span>{levelLabels[level]}</span>
+            <span class="toggle-icon" style="transition: transform 0.2s;">{isExpanded(level) ? '▼' : '▶'}</span>
+          </button>
+          <ul 
+            class="tutorial-list"
+            style={`list-style: none; padding: 0; margin: 0.5rem 0 1rem 0; overflow: hidden; transition: max-height 0.3s ease; max-height: ${isExpanded(level) ? '500px' : '0px'};`}
+          >
+            {tutorials.map((tutorial) => {
+              const isActive = currentSlug === tutorial.slug;
+              const orderNum = tutorial.data.order.toString().padStart(2, '0');
+              return (
+                <li style="margin-bottom: 0.25rem;">
+                  <a
+                    href={`/tutorials/${tutorial.slug}`}
+                    style={`
+                      display: block;
+                      padding: 0.4rem 0.75rem;
+                      border-radius: var(--radius);
+                      font-size: 0.9rem;
+                      color: ${isActive ? 'var(--primary)' : 'var(--text-medium)'};
+                      background: ${isActive ? 'var(--bg-light)' : 'transparent'};
+                      font-weight: ${isActive ? '600' : '400'};
+                      text-decoration: none;
+                    `}
+                  >
+                    {orderNum}. {tutorial.data.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )
+    ))}
+  </nav>
+</aside>
+
+<script is:inline>
+  window.toggleLevel = function(level) {
+    const group = document.querySelector('[data-level="' + level + '"]');
+    if (group) {
+      const isExpanded = group.getAttribute('data-expanded') === 'true';
+      const list = group.querySelector('.tutorial-list');
+      const icon = group.querySelector('.toggle-icon');
+      
+      if (isExpanded) {
+        group.setAttribute('data-expanded', 'false');
+        if (list) list.style.maxHeight = '0';
+        if (icon) icon.textContent = '▶';
+      } else {
+        group.setAttribute('data-expanded', 'true');
+        if (list) list.style.maxHeight = '500px';
+        if (icon) icon.textContent = '▼';
+      }
+    }
+  };
+</script>
