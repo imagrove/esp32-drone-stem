@@ -47,6 +47,13 @@ export const ui = {
     'tutorials.beginner.title': 'Beginner Tutorials',
     'tutorials.level': 'Level',
     'tutorials.duration': 'Duration',
+    
+    // Footer
+    'footer.contact': 'Contact Us',
+    'footer.whatsapp': 'WhatsApp',
+    'footer.wechat': 'WeChat',
+    'footer.youtube': 'YouTube Channel',
+    'footer.copyright': '© 2026 ESP32 Drone. All rights reserved.',
   },
   zh: {
     // Navigation
@@ -94,6 +101,13 @@ export const ui = {
     'tutorials.beginner.title': '初级教程',
     'tutorials.level': '难度',
     'tutorials.duration': '时长',
+    
+    // Footer
+    'footer.contact': '联系我们',
+    'footer.whatsapp': 'WhatsApp',
+    'footer.wechat': '微信',
+    'footer.youtube': 'YouTube 频道',
+    'footer.copyright': '© 2026 ESP32 Drone. 保留所有权利。',
   },
 } as const;
 
