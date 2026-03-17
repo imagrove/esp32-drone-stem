@@ -28,13 +28,17 @@ drone-website/
 │   │   └── tutorials/     # 教程内容
 │   │       ├── en/        # 英文教程
 │   │       └── zh/        # 中文教程
+│   ├── i18n/              # 国际化配置
+│   │   ├── ui.ts          # 翻译文本
+│   │   └── utils.ts       # i18n 工具函数
 │   ├── layouts/           # 页面布局
 │   └── pages/             # 路由页面
-│       ├── index.astro    # 英文首页
+│       ├── index.astro    # 统一模板（中英文共用）
 │       ├── hardware.astro # 硬件页面
 │       ├── downloads.astro# 下载页面
 │       ├── tutorials/     # 教程页面
-│       └── zh/            # 中文页面
+│       └── zh/            # 中文路由入口
+│           └── index.astro# 中文首页（导入统一模板）
 ├── public/                # 静态资源
 │   └── robots.txt         # 爬虫规则
 ├── astro.config.mjs       # Astro 配置
@@ -42,6 +46,50 @@ drone-website/
 ├── package.json           # 依赖配置
 └── README.md              # 项目文档
 ```
+
+### 国际化（i18n）架构设计
+
+本项目采用**统一模板 + 路由入口**的多语言架构：
+
+#### 设计原则
+
+1. **统一模板**：`src/pages/index.astro` 是唯一的首页模板，包含所有渲染逻辑
+2. **路由入口**：`src/pages/zh/index.astro` 仅作为中文路由入口，导入并渲染统一模板
+3. **语言检测**：模板通过 `getLangFromUrl()` 函数自动识别 URL 路径，返回对应语言内容
+
+#### 路由映射
+
+| URL 路径 | 源文件 | 语言 | 说明 |
+|----------|--------|------|------|
+| `/` | `src/pages/index.astro` | 英文 | 默认语言，根路径 |
+| `/zh/` | `src/pages/zh/index.astro` → `index.astro` | 中文 | 路由入口导入统一模板 |
+
+#### 配置说明
+
+```javascript
+// astro.config.mjs
+i18n: {
+  defaultLocale: 'en',
+  locales: ['en', 'zh'],
+  routing: {
+    prefixDefaultLocale: false,  // 英文在根路径，不添加 /en/ 前缀
+  },
+}
+```
+
+#### 为什么需要 zh/index.astro？
+
+当 `prefixDefaultLocale: false` 时，Astro 的 i18n 路由只将 `index.astro` 映射到根路径 `/`，不会自动生成 `/zh/` 子目录。因此需要手动创建 `zh/index.astro` 作为路由入口：
+
+```astro
+---
+// src/pages/zh/index.astro
+import Index from '../index.astro';
+---
+<Index />
+```
+
+这样既能保持英文在根路径（有利于 Google SEO），又能让中文通过 `/zh/` 访问，同时完全复用同一套模板代码。
 
 ### 相关文档
 
