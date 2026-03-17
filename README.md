@@ -23,36 +23,42 @@
 
 ```
 drone-website/
-├── src/
+├── src/                    # 源代码
 │   ├── content/           # 内容集合
 │   │   └── tutorials/     # 教程内容
 │   │       ├── en/        # 英文教程
 │   │       └── zh/        # 中文教程
 │   ├── layouts/           # 页面布局
-│   ├── pages/             # 路由页面
-│   │   ├── index.astro    # 英文首页
-│   │   └── zh/            # 中文页面
-│   └── components/        # 可复用组件
+│   └── pages/             # 路由页面
+│       ├── index.astro    # 英文首页
+│       ├── hardware.astro # 硬件页面
+│       ├── downloads.astro# 下载页面
+│       ├── tutorials/     # 教程页面
+│       └── zh/            # 中文页面
 ├── public/                # 静态资源
-│   ├── assets/
-│   └── images/
-├── sitemap.xml            # 站点地图（SEO）
-├── robots.txt             # 爬虫规则
-├── CNAME                  # 自定义域名配置
-└── vercel.json            # Vercel路由配置
+│   └── robots.txt         # 爬虫规则
+├── astro.config.mjs       # Astro 配置
+├── vercel.json            # Vercel 配置
+├── package.json           # 依赖配置
+└── README.md              # 项目文档
 ```
-
-### 关键URL
-
-- 生产环境: https://drone.imagrove.com
-- 站点地图: https://drone.imagrove.com/sitemap.xml
-- Robots: https://drone.imagrove.com/robots.txt
 
 ### 相关文档
 
 - 初级教材: `1.1初级教材.md`
 - 中级教材: `1.2中级教材.md`
 - 高级教材: `1.3高级教材.md`
+
+### 验证部署
+
+部署成功后，验证以下 URL：
+
+- 英文首页：https://drone.imagrove.com/
+- 中文首页：https://drone.imagrove.com/zh/
+- 硬件页面：https://drone.imagrove.com/hardware
+- 下载页面：https://drone.imagrove.com/downloads
+- 教程页面：https://drone.imagrove.com/tutorials
+- 站点地图：https://drone.imagrove.com/sitemap.xml
 
 ## 开发命令
 
@@ -131,7 +137,7 @@ git push origin main
 
 3. 点击 **Save** 保存
 
-> **注意**：如果 Output Directory 设置不正确（不是 `dist`），网站会返回 404 错误。详见 [DEPLOYMENT.md](./DEPLOYMENT.md)
+> **注意**：如果 Output Directory 设置不正确（不是 `dist`），网站会返回 404 错误。详见下方的「故障排除」章节。
 
 #### 3. 配置自定义域名
 
@@ -172,16 +178,6 @@ Vercel 项目的 **Output Directory** 默认为 `public` 或 `.`，而 Astro 构
 **解决方案**：
 访问 https://vercel.com/imagroves-projects/drone-website/settings/build-and-deployment
 将 **Output Directory** 修改为 `dist`，然后重新部署。
-
-### 验证部署
-
-部署成功后，验证以下 URL：
-
-- 英文首页：https://drone.imagrove.com/
-- 中文首页：https://drone.imagrove.com/zh/
-- 硬件页面：https://drone.imagrove.com/hardware
-- 下载页面：https://drone.imagrove.com/downloads
-- 教程页面：https://drone.imagrove.com/tutorials
 
 ### 常用命令
 
