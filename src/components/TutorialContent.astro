@@ -29,8 +29,22 @@ const t = useTranslations(lang);
 >
     <Header />
 
-    <div style="display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 70px);">
-        <TutorialSidebar />
+    <!-- Mobile Sidebar Toggle -->
+    <button class="mobile-sidebar-toggle" style="display: none; position: fixed; bottom: 20px; right: 20px; z-index: 100; background: var(--primary); color: white; border: none; border-radius: 50%; width: 56px; height: 56px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); cursor: pointer;" aria-label="Toggle sidebar">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin: auto;">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div class="mobile-sidebar-overlay" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 90;"></div>
+
+    <div class="tutorial-layout" style="display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 70px);">
+        <div class="sidebar-wrapper">
+            <TutorialSidebar />
+        </div>
 
         <!-- Content -->
         <main style="padding: 2rem; max-width: 800px;">
@@ -103,4 +117,74 @@ const t = useTranslations(lang);
         background: transparent;
         padding: 0;
     }
+
+    /* Mobile styles */
+    @media (max-width: 768px) {
+        .tutorial-layout {
+            grid-template-columns: 1fr !important;
+        }
+        .sidebar-wrapper {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            bottom: 0;
+            width: 280px;
+            background: white;
+            z-index: 95;
+            box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+        }
+        .sidebar-wrapper.active {
+            display: block;
+        }
+        .mobile-sidebar-toggle {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+        }
+        .mobile-sidebar-overlay.active {
+            display: block !important;
+        }
+        main {
+            padding: 1rem !important;
+            max-width: 100% !important;
+        }
+        .tutorial-content :global(h1) {
+            font-size: 1.5rem;
+        }
+        .tutorial-content :global(h2) {
+            font-size: 1.25rem;
+        }
+        .tutorial-content :global(h3) {
+            font-size: 1.1rem;
+        }
+    }
 </style>
+
+<script is:inline>
+    (function() {
+        const toggleBtn = document.querySelector('.mobile-sidebar-toggle');
+        const sidebar = document.querySelector('.sidebar-wrapper');
+        const overlay = document.querySelector('.mobile-sidebar-overlay');
+        
+        if (toggleBtn && sidebar && overlay) {
+            toggleBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+            
+            overlay.addEventListener('click', function() {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            });
+            
+            // Close sidebar when clicking a link
+            sidebar.querySelectorAll('a').forEach(function(link) {
+                link.addEventListener('click', function() {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                });
+            });
+        }
+    })();
+</script>
