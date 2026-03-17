@@ -11,22 +11,40 @@
 
 ## 项目结构
 
-```
-src/
-├── content/           # 内容集合
-│   └── tutorials/     # 教程内容
-│       ├── en/        # 英文教程
-│       └── zh/        # 中文教程
-├── layouts/           # 页面布局
-├── pages/             # 路由页面
-│   ├── index.astro    # 英文首页
-│   └── zh/            # 中文页面
-└── components/        # 可复用组件
+### 当前目录结构
 
-public/                # 静态资源
-├── assets/
-└── images/
 ```
+drone-website/
+├── src/
+│   ├── content/           # 内容集合
+│   │   └── tutorials/     # 教程内容
+│   │       ├── en/        # 英文教程
+│   │       └── zh/        # 中文教程
+│   ├── layouts/           # 页面布局
+│   ├── pages/             # 路由页面
+│   │   ├── index.astro    # 英文首页
+│   │   └── zh/            # 中文页面
+│   └── components/        # 可复用组件
+├── public/                # 静态资源
+│   ├── assets/
+│   └── images/
+├── sitemap.xml            # 站点地图（SEO）
+├── robots.txt             # 爬虫规则
+├── CNAME                  # 自定义域名配置
+└── vercel.json            # Vercel路由配置
+```
+
+### 关键URL
+
+- 生产环境: https://drone.imagrove.com
+- 站点地图: https://drone.imagrove.com/sitemap.xml
+- Robots: https://drone.imagrove.com/robots.txt
+
+### 相关文档
+
+- 初级教材: `网站-社区/初级教材.md`
+- 中级教材: `网站-社区/中级教材.md`
+- 高级教材: `网站-社区/高级教材1.md`, `高级教材2.md`
 
 ## 开发命令
 
@@ -70,10 +88,32 @@ draft: false
 
 ## 部署
 
+### 自动部署
+
 推送到 GitHub 后，Vercel 自动部署。
 
 ```bash
 git add -A
 git commit -m "更新内容"
 git push
+```
+
+### ⚠️ 重要：Vercel 配置
+
+首次部署或创建新项目时，需要在 Vercel Dashboard 中配置：
+
+1. 访问项目 Settings → Build & Development Settings
+2. 确保以下配置正确：
+   - **Framework Preset**: `Astro`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist` ⚠️ （默认为 public，必须修改！）
+   - **Install Command**: `npm install`
+
+> **注意**：如果 Output Directory 设置不正确，网站会返回 404 错误。详见 [DEPLOYMENT.md](./DEPLOYMENT.md)
+
+### 手动部署
+
+```bash
+# 使用 Vercel CLI
+vercel --prod
 ```
