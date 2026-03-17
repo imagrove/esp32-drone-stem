@@ -1,24 +1,14 @@
 ---
 import { getCollection } from 'astro:content';
+import TutorialContent from '../../../components/TutorialContent.astro';
 
-// Get first beginner tutorial for default redirect (Chinese)
+// Get first beginner tutorial (Chinese)
 const tutorials = await getCollection('tutorials', ({ data }) => {
   return data.draft !== true && data.level === 'beginner' && data.lang === 'zh';
 });
 
 tutorials.sort((a, b) => a.data.order - b.data.order);
 const firstTutorial = tutorials[0];
-
-const redirectUrl = `/tutorials/${firstTutorial.slug}`;
 ---
 
-<!DOCTYPE html>
-<html>
-<head>
-    <meta http-equiv="refresh" content={`0; url=${redirectUrl}`} />
-    <title>Redirecting...</title>
-</head>
-<body>
-    <p>Redirecting to <a href={redirectUrl}>{redirectUrl}</a>...</p>
-</body>
-</html>
+<TutorialContent entry={firstTutorial} />
