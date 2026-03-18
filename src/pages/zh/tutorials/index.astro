@@ -2,13 +2,19 @@
 import { getCollection } from 'astro:content';
 import TutorialContent from '../../../components/TutorialContent.astro';
 
-// Get first beginner tutorial (Chinese)
+// Get level from URL params, default to beginner
+const level = Astro.url.searchParams.get('level') || 'beginner';
+
+// Get first tutorial for the specified level (Chinese)
 const tutorials = await getCollection('tutorials', ({ data }) => {
-  return data.draft !== true && data.level === 'beginner' && data.lang === 'zh';
+  return data.draft !== true && data.level === level && data.lang === 'zh';
 });
 
 tutorials.sort((a, b) => a.data.order - b.data.order);
 const firstTutorial = tutorials[0];
+
+// Store the level in a way that can be accessed by the sidebar
+const meta = { level };
 ---
 
-<TutorialContent entry={firstTutorial} />
+<TutorialContent entry={firstTutorial} level={level} />

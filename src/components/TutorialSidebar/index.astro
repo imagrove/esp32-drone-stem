@@ -5,6 +5,12 @@ import { defaultLang, ui } from '../../i18n/ui';
 import Desktop from './Desktop.astro';
 import Mobile from './Mobile.astro';
 
+interface Props {
+  level?: string;
+}
+
+const { level: initialLevel } = Astro.props;
+
 // Detect language from URL
 const pathParts = Astro.url.pathname.split('/').filter(Boolean);
 let lang = defaultLang;
@@ -47,7 +53,8 @@ const sidebarProps = {
   lang,
   tutorialsByLevel,
   levelLabels,
-  currentSlug
+  currentSlug,
+  initialLevel
 };
 ---
 
@@ -56,6 +63,8 @@ const sidebarProps = {
 
 <!-- Mobile Sidebar -->
 <Mobile {...sidebarProps} />
+
+<div id="sidebar-meta" data-initial-level={initialLevel || ''}></div>
 
 <script is:inline>
   window.toggleLevel = function(level) {
@@ -80,16 +89,50 @@ const sidebarProps = {
   // Restore sidebar state on page load
   (function() {
     const levels = ['beginner', 'intermediate', 'advanced'];
+    const metaEl = document.getElementById('sidebar-meta');
+    const initialLevel = metaEl ? metaEl.getAttribute('data-initial-level') : null;
+    
+    // Find the active tutorial link to determine current level
+    const activeLink = document.querySelector('.tutorial-link.active');
+    let currentLevel = null;
+    if (activeLink) {
+      const levelGroup = activeLink.closest('.level-group');
+      if (levelGroup) {
+        currentLevel = levelGroup.getAttribute('data-level');
+      }
+    }
+    
+    // Determine which level should be expanded
+    let targetLevel = null;
+    if (currentLevel) {
+      targetLevel = currentLevel;
+    } else if (initialLevel) {
+      targetLevel = initialLevel;
+    }
+    
     levels.forEach(function(level) {
-      const savedState = localStorage.getItem('sidebar-level-' + level);
-      if (savedState === 'expanded') {
-        const groups = document.querySelectorAll('[data-level="' + level + '"]');
+      const groups = document.querySelectorAll('[data-level="' + level + '"]');
+      
+      if (level === targetLevel) {
+        // Expand the target level
         groups.forEach(function(group) {
           const list = group.querySelector('.tutorial-list');
           const icon = group.querySelector('.toggle-icon');
           list?.classList.add('expanded');
           if (icon) icon.textContent = '▼';
         });
+        // Update localStorage
+        localStorage.setItem('sidebar-level-' + level, 'expanded');
+      } else {
+        // Collapse all other levels
+        groups.forEach(function(group) {
+          const list = group.querySelector('.tutorial-list');
+          const icon = group.querySelector('.toggle-icon');
+          list?.classList.remove('expanded');
+          if (icon) icon.textContent = '▶';
+        });
+        // Update localStorage
+        localStorage.setItem('sidebar-level-' + level, 'collapsed');
       }
     });
   })();

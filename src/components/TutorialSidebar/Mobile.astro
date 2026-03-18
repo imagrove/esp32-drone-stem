@@ -16,9 +16,10 @@ interface Props {
   tutorialsByLevel: { level: string; tutorials: Tutorial[] }[];
   levelLabels: Record<string, string>;
   currentSlug: string;
+  initialLevel?: string;
 }
 
-const { lang, tutorialsByLevel, levelLabels, currentSlug } = Astro.props;
+const { lang, tutorialsByLevel, levelLabels, currentSlug, initialLevel } = Astro.props;
 ---
 
 <!-- Mobile Toggle Button -->

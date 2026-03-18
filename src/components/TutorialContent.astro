@@ -11,9 +11,10 @@ import type { CollectionEntry } from 'astro:content';
 
 interface Props {
   entry: CollectionEntry<'tutorials'>;
+  level?: string;
 }
 
-const { entry } = Astro.props;
+const { entry, level } = Astro.props;
 const { Content } = await entry.render();
 
 // Detect language from entry slug (e.g., "zh/beginner/01-first-flight")
@@ -46,7 +47,7 @@ const t = useTranslations(lang);
 
     <div class="tutorial-layout" style="display: grid; grid-template-columns: 280px 1fr; min-height: calc(100vh - 70px);">
         <div class="sidebar-wrapper">
-            <TutorialSidebar />
+            <TutorialSidebar level={level || entry.data.level} />
         </div>
 
         <!-- Content -->
