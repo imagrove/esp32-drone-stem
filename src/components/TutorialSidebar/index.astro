@@ -1,0 +1,96 @@
+---
+import { getCollection } from 'astro:content';
+import { useTranslations } from '../../i18n/utils';
+import { defaultLang, ui } from '../../i18n/ui';
+import Desktop from './Desktop.astro';
+import Mobile from './Mobile.astro';
+
+// Detect language from URL
+const pathParts = Astro.url.pathname.split('/').filter(Boolean);
+let lang = defaultLang;
+
+if (pathParts[0] === 'tutorials' && pathParts[1] && pathParts[1] in ui) {
+  lang = pathParts[1] as keyof typeof ui;
+} else if (pathParts[0] === 'zh') {
+  lang = 'zh';
+} else if (pathParts[0] === 'en') {
+  lang = 'en';
+}
+
+const t = useTranslations(lang);
+
+// Get current path to highlight active item
+const currentPath = Astro.url.pathname;
+const currentSlug = currentPath.replace('/tutorials/', '').replace(/\/$/, '');
+
+// Get all tutorials for this language
+const allTutorials = await getCollection('tutorials', ({ data }) => {
+  return data.draft !== true && data.lang === lang;
+});
+
+// Group by level
+const levels = ['beginner', 'intermediate', 'advanced'] as const;
+const tutorialsByLevel = levels.map(level => {
+  const levelTutorials = allTutorials
+    .filter(t => t.data.level === level)
+    .sort((a, b) => a.data.order - b.data.order);
+  return { level, tutorials: levelTutorials };
+});
+
+const levelLabels: Record<string, string> = {
+  beginner: t('courses.beginner.title'),
+  intermediate: t('courses.intermediate.title'),
+  advanced: t('courses.advanced.title'),
+};
+
+const sidebarProps = {
+  lang,
+  tutorialsByLevel,
+  levelLabels,
+  currentSlug
+};
+---
+
+<!-- Desktop Sidebar -->
+<Desktop {...sidebarProps} />
+
+<!-- Mobile Sidebar -->
+<Mobile {...sidebarProps} />
+
+<script is:inline>
+  window.toggleLevel = function(level) {
+    const groups = document.querySelectorAll('[data-level="' + level + '"]');
+    groups.forEach(function(group) {
+      const list = group.querySelector('.tutorial-list');
+      const icon = group.querySelector('.toggle-icon');
+      const isExpanded = list?.classList.contains('expanded');
+      
+      if (isExpanded) {
+        list?.classList.remove('expanded');
+        if (icon) icon.textContent = '▶';
+        localStorage.setItem('sidebar-level-' + level, 'collapsed');
+      } else {
+        list?.classList.add('expanded');
+        if (icon) icon.textContent = '▼';
+        localStorage.setItem('sidebar-level-' + level, 'expanded');
+      }
+    });
+  };
+
+  // Restore sidebar state on page load
+  (function() {
+    const levels = ['beginner', 'intermediate', 'advanced'];
+    levels.forEach(function(level) {
+      const savedState = localStorage.getItem('sidebar-level-' + level);
+      if (savedState === 'expanded') {
+        const groups = document.querySelectorAll('[data-level="' + level + '"]');
+        groups.forEach(function(group) {
+          const list = group.querySelector('.tutorial-list');
+          const icon = group.querySelector('.toggle-icon');
+          list?.classList.add('expanded');
+          if (icon) icon.textContent = '▼';
+        });
+      }
+    });
+  })();
+</script>

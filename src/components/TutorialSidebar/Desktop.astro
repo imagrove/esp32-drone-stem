@@ -1,0 +1,150 @@
+---
+import type { Lang } from '../../i18n/utils';
+
+interface Tutorial {
+  slug: string;
+  data: {
+    title: string;
+    order: number;
+    level: string;
+    lang: Lang;
+  };
+}
+
+interface Props {
+  lang: Lang;
+  tutorialsByLevel: { level: string; tutorials: Tutorial[] }[];
+  levelLabels: Record<string, string>;
+  currentSlug: string;
+}
+
+const { lang, tutorialsByLevel, levelLabels, currentSlug } = Astro.props;
+---
+
+<aside class="sidebar-desktop">
+  <nav>
+    {tutorialsByLevel.map(({ level, tutorials }) => (
+      tutorials.length > 0 && (
+        <div class="level-group" data-level={level}>
+          <button 
+            class="level-toggle"
+            onclick={`toggleLevel('${level}')`}
+          >
+            <span>{levelLabels[level]}</span>
+            <span class="toggle-icon">▶</span>
+          </button>
+          <ul class="tutorial-list">
+            {tutorials.map((tutorial) => {
+              const isActive = currentSlug === tutorial.slug;
+              const orderNum = tutorial.data.order.toString().padStart(2, '0');
+              const tutorialHref = tutorial.slug.startsWith(`${lang}/`) 
+                ? `/tutorials/${tutorial.slug}` 
+                : `/tutorials/${lang}/${tutorial.slug}`;
+              return (
+                <li>
+                  <a
+                    href={tutorialHref}
+                    class={`tutorial-link ${isActive ? 'active' : ''}`}
+                  >
+                    {orderNum}. {tutorial.data.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )
+    ))}
+  </nav>
+</aside>
+
+<style>
+  .sidebar-desktop {
+    width: var(--sidebar-width, 280px);
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    height: calc(100vh - var(--header-height, 70px));
+    overflow-y: auto;
+    position: sticky;
+    top: var(--header-height, 70px);
+    background: white;
+  }
+
+  .level-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .level-group:last-child {
+    margin-bottom: 100px;
+  }
+
+  .level-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 600;
+    border-radius: var(--radius);
+    min-height: 44px;
+  }
+
+  .level-toggle:hover {
+    background: var(--bg-light);
+  }
+
+  .toggle-icon {
+    transition: transform 0.2s;
+  }
+
+  .tutorial-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1rem 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .tutorial-list.expanded {
+    max-height: 2000px;
+  }
+
+  .tutorial-link {
+    display: block;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    background: transparent;
+    font-weight: 400;
+    text-decoration: none;
+    min-height: 44px;
+    line-height: 1.5;
+    transition: all 0.2s;
+  }
+
+  .tutorial-link:hover {
+    background: var(--bg-light);
+    color: var(--primary);
+  }
+
+  .tutorial-link.active {
+    color: var(--primary);
+    background: var(--bg-light);
+    font-weight: 600;
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 768px) {
+    .sidebar-desktop {
+      display: none !important;
+    }
+  }
+</style>

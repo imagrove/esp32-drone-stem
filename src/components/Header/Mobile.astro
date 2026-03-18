@@ -1,0 +1,131 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  isZh: boolean;
+  isHome: boolean;
+  isTutorials: boolean;
+  isHardware: boolean;
+  isDownloads: boolean;
+}
+
+const { lang, isZh, isHome, isTutorials, isHardware, isDownloads } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<button class="mobile-menu-btn" aria-label="Toggle menu" aria-expanded="false">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <line class="menu-line-1" x1="3" y1="6" x2="21" y2="6"></line>
+    <line class="menu-line-2" x1="3" y1="12" x2="21" y2="12"></line>
+    <line class="menu-line-3" x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</button>
+
+<div class="mobile-menu">
+  <div class="mobile-menu-content">
+    <a href={isZh ? "/zh/" : "/"} class={isHome ? "active" : ""}>{t('nav.home')}</a>
+    <a href={isZh ? "/zh/tutorials" : "/tutorials"} class={isTutorials ? "active" : ""}>{t('nav.tutorials')}</a>
+    <a href={isZh ? "/zh/hardware" : "/hardware"} class={isHardware ? "active" : ""}>{t('nav.hardware')}</a>
+    <a href={isZh ? "/zh/downloads" : "/downloads"} class={isDownloads ? "active" : ""}>{t('nav.downloads')}</a>
+    <a href={isZh ? "/" : "/zh/"} class="lang-switch">{t('nav.lang')}</a>
+  </div>
+</div>
+
+<style>
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    color: var(--text-dark);
+    transition: color 0.2s ease;
+  }
+
+  .mobile-menu-btn:hover {
+    color: var(--primary);
+  }
+
+  .mobile-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border-top: 1px solid var(--border);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+  }
+
+  .mobile-menu.active {
+    display: block;
+  }
+
+  .mobile-menu-content {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu-content a {
+    color: var(--text-dark);
+    text-decoration: none;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: color 0.2s ease;
+  }
+
+  .mobile-menu-content a:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-menu-content a:hover,
+  .mobile-menu-content a.active {
+    color: var(--primary);
+  }
+
+  .mobile-menu-content .lang-switch {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 2px solid var(--border);
+  }
+
+  /* Show on mobile */
+  @media (max-width: 768px) {
+    .mobile-menu-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: var(--touch-target-size, 44px);
+      min-width: var(--touch-target-size, 44px);
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const menuBtn = document.querySelector('.mobile-menu-btn');
+    const mobileMenu = document.querySelector('.mobile-menu');
+
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', function() {
+        const isExpanded = mobileMenu.classList.toggle('active');
+        menuBtn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+      });
+
+      // Close menu when clicking outside
+      document.addEventListener('click', function(e) {
+        if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+          mobileMenu.classList.remove('active');
+          menuBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  })();
+</script>

@@ -33,6 +33,9 @@ const { title, description, lang = 'en' } = Astro.props;
     <meta name="twitter:title" content={title}>
     <meta name="twitter:description" content={description}>
     
+    <!-- Import breakpoints CSS -->
+    <link rel="stylesheet" href="/src/styles/breakpoints.css">
+
     <style is:global>
         :root {
             --primary: #1E293B;
@@ -47,9 +50,8 @@ const { title, description, lang = 'en' } = Astro.props;
             --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
             --shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
             --radius: 8px;
-            
+
             /* 响应式字体大小 */
-            --font-size-base: 16px;
             --font-size-h1: clamp(1.5rem, 5vw, 2.5rem);
             --font-size-h2: clamp(1.25rem, 4vw, 2rem);
             --font-size-h3: clamp(1rem, 3vw, 1.5rem);

@@ -1,0 +1,209 @@
+---
+import type { Lang } from '../../i18n/utils';
+
+interface Tutorial {
+  slug: string;
+  data: {
+    title: string;
+    order: number;
+    level: string;
+    lang: Lang;
+  };
+}
+
+interface Props {
+  lang: Lang;
+  tutorialsByLevel: { level: string; tutorials: Tutorial[] }[];
+  levelLabels: Record<string, string>;
+  currentSlug: string;
+}
+
+const { lang, tutorialsByLevel, levelLabels, currentSlug } = Astro.props;
+---
+
+<!-- Mobile Toggle Button -->
+<button class="sidebar-toggle" aria-label="Toggle sidebar" aria-expanded="false">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <line x1="3" y1="6" x2="21" y2="6"></line>
+    <line x1="3" y1="12" x2="21" y2="12"></line>
+    <line x1="3" y1="18" x2="21" y2="18"></line>
+  </svg>
+</button>
+
+<!-- Overlay -->
+<div class="sidebar-overlay"></div>
+
+<!-- Mobile Sidebar -->
+<aside class="sidebar-mobile">
+  <nav>
+    {tutorialsByLevel.map(({ level, tutorials }) => (
+      tutorials.length > 0 && (
+        <div class="level-group" data-level={level}>
+          <button 
+            class="level-toggle"
+            onclick={`toggleLevel('${level}')`}
+          >
+            <span>{levelLabels[level]}</span>
+            <span class="toggle-icon">▶</span>
+          </button>
+          <ul class="tutorial-list">
+            {tutorials.map((tutorial) => {
+              const isActive = currentSlug === tutorial.slug;
+              const orderNum = tutorial.data.order.toString().padStart(2, '0');
+              const tutorialHref = tutorial.slug.startsWith(`${lang}/`) 
+                ? `/tutorials/${tutorial.slug}` 
+                : `/tutorials/${lang}/${tutorial.slug}`;
+              return (
+                <li>
+                  <a
+                    href={tutorialHref}
+                    class={`tutorial-link ${isActive ? 'active' : ''}`}
+                  >
+                    {orderNum}. {tutorial.data.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )
+    ))}
+  </nav>
+</aside>
+
+<style>
+  .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 80px;
+    left: 1rem;
+    z-index: 1001;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .sidebar-mobile {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    z-index: 1001;
+    background: white;
+    border-right: 1px solid var(--border);
+    padding: 1.5rem;
+    overflow-y: auto;
+    transition: left 0.3s ease;
+  }
+
+  .sidebar-mobile.active {
+    left: 0;
+  }
+
+  .level-group {
+    margin-bottom: 0.5rem;
+  }
+
+  .level-toggle {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: var(--text-light);
+    font-weight: 600;
+    border-radius: var(--radius);
+    min-height: 44px;
+  }
+
+  .tutorial-list {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 1rem 0;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+  }
+
+  .tutorial-list.expanded {
+    max-height: 2000px;
+  }
+
+  .tutorial-link {
+    display: block;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    text-decoration: none;
+    min-height: 44px;
+    line-height: 1.5;
+  }
+
+  .tutorial-link.active {
+    color: var(--primary);
+    background: var(--bg-light);
+    font-weight: 600;
+  }
+
+  /* Show on mobile */
+  @media (max-width: 768px) {
+    .sidebar-toggle,
+    .sidebar-mobile {
+      display: block;
+    }
+  }
+</style>
+
+<script is:inline>
+  (function() {
+    const toggleBtn = document.querySelector('.sidebar-toggle');
+    const sidebar = document.querySelector('.sidebar-mobile');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (toggleBtn && sidebar && overlay) {
+      toggleBtn.addEventListener('click', function() {
+        const isActive = sidebar.classList.toggle('active');
+        overlay.classList.toggle('active');
+        toggleBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+      });
+
+      overlay.addEventListener('click', function() {
+        sidebar.classList.remove('active');
+        overlay.classList.remove('active');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  })();
+</script>

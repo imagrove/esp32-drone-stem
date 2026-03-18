@@ -1,0 +1,115 @@
+/**
+ * Breakpoint Variables & Responsive Utilities
+ * Centralized breakpoint management for consistent responsive design
+ */
+
+:root {
+  /* Breakpoint values */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+
+  /* Responsive variables - Mobile First (default: mobile) */
+  --sidebar-width: 100%;
+  --sidebar-position: fixed;
+  --content-padding: 1rem;
+  --content-max-width: 100%;
+  --font-size-base: 14px;
+  --header-height: 60px;
+  --grid-columns: 1;
+  --card-padding: 1rem;
+  --touch-target-size: 44px;
+}
+
+/* Tablet (md) */
+@media (min-width: 768px) {
+  :root {
+    --sidebar-width: 260px;
+    --sidebar-position: sticky;
+    --content-padding: 1.5rem;
+    --content-max-width: 100%;
+    --font-size-base: 15px;
+    --grid-columns: 2;
+    --card-padding: 1.25rem;
+  }
+}
+
+/* Desktop (lg) */
+@media (min-width: 1024px) {
+  :root {
+    --sidebar-width: 280px;
+    --content-padding: 2rem;
+    --content-max-width: 1200px;
+    --font-size-base: 16px;
+    --header-height: 70px;
+    --grid-columns: 3;
+    --card-padding: 1.5rem;
+  }
+}
+
+/* Large Desktop (xl) */
+@media (min-width: 1280px) {
+  :root {
+    --content-max-width: 1400px;
+    --grid-columns: 3;
+  }
+}
+
+/* ============================================
+   Utility Classes for Component Visibility
+   ============================================ */
+
+/* Mobile only */
+.visible-mobile {
+  display: block;
+}
+
+.hidden-mobile {
+  display: none;
+}
+
+/* Tablet and up */
+@media (min-width: 768px) {
+  .visible-mobile {
+    display: none;
+  }
+
+  .hidden-mobile {
+    display: block;
+  }
+
+  .visible-tablet {
+    display: block;
+  }
+}
+
+/* Desktop and up */
+@media (min-width: 1024px) {
+  .visible-tablet-only {
+    display: none;
+  }
+
+  .visible-desktop {
+    display: block;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .touch-optimized {
+    min-height: var(--touch-target-size);
+    min-width: var(--touch-target-size);
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

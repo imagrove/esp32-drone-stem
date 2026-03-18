@@ -1,0 +1,76 @@
+---
+import { useTranslations } from '../../i18n/utils';
+import type { Lang } from '../../i18n/utils';
+
+interface Props {
+  lang: Lang;
+  isZh: boolean;
+  isHome: boolean;
+  isTutorials: boolean;
+  isHardware: boolean;
+  isDownloads: boolean;
+}
+
+const { lang, isZh, isHome, isTutorials, isHardware, isDownloads } = Astro.props;
+const t = useTranslations(lang);
+---
+
+<div class="desktop-nav">
+  <a href={isZh ? "/zh/" : "/"} class={isHome ? "active" : ""}>{t('nav.home')}</a>
+  <a href={isZh ? "/zh/tutorials" : "/tutorials"} class={isTutorials ? "active" : ""}>{t('nav.tutorials')}</a>
+  <a href={isZh ? "/zh/hardware" : "/hardware"} class={isHardware ? "active" : ""}>{t('nav.hardware')}</a>
+  <a href={isZh ? "/zh/downloads" : "/downloads"} class={isDownloads ? "active" : ""}>{t('nav.downloads')}</a>
+</div>
+
+<div class="desktop-lang">
+  <a href={isZh ? "/" : "/zh/"}>{t('nav.lang')}</a>
+</div>
+
+<style>
+  .desktop-nav {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .desktop-nav a {
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .desktop-nav a:hover {
+    color: var(--primary);
+  }
+
+  .desktop-nav a.active {
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .desktop-lang {
+    margin-left: 2rem;
+  }
+
+  .desktop-lang a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
+  }
+
+  .desktop-lang a:hover {
+    background: var(--bg-light);
+    color: var(--primary);
+  }
+
+  /* Hide on mobile */
+  @media (max-width: 768px) {
+    .desktop-nav,
+    .desktop-lang {
+      display: none !important;
+    }
+  }
+</style>
