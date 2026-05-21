@@ -50,10 +50,12 @@ Starlight 自动处理多语言路由：
 
 | URL 路径 | 语言 | 内容来源 |
 |----------|------|----------|
-| `/beginner/first-flight` | English | `src/content/docs/beginner/first-flight.md` |
-| `/zh/beginner/first-flight` | 中文 | `src/content/docs/zh/beginner/first-flight.md` |
+| `/beginner/first-flight` | English | `src/content/docs/beginner/01-first-flight.md` |
+| `/zh/beginner/first-flight` | 中文 | `src/content/docs/zh/beginner/01-first-flight.md` |
 | `/` | English | `src/pages/index.astro`（自定义页面） |
 | `/zh/` | 中文 | `src/pages/zh/index.astro`（自定义页面） |
+
+> 说明：教程文件名以 `XX-` 开头（如 `01-first-flight.md`）是为了在文件树中按学习顺序排列；URL 中的数字前缀会被 `src/content.config.ts` 中的 `generateId` 自动剥离，对外保持不变。
 
 英文为默认语言（根路径），中文在 `/zh/` 路径下。
 
