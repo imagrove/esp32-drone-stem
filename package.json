@@ -10,8 +10,9 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/starlight": "^0.39.2",
     "@google-analytics/admin": "^9.0.1",
-    "astro": "^5.0.0",
+    "astro": "^6.3.7",
     "axios": "^1.15.2",
     "googleapis": "^171.4.0"
   }

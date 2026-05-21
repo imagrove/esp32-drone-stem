@@ -2,6 +2,7 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header/index.astro';
 import Footer from '../../components/Footer.astro';
+import { LINKS } from '../../config';
 ---
 
 <Layout
@@ -128,7 +129,7 @@ I2C 传感器：
         <h2 style="margin: 2rem 0 1rem;">采购与样品</h2>
         <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
             <p style="margin-bottom: 1.5rem; color: var(--text-medium);">准备好开始您的无人机项目了吗？您可以直接在我们的阿里巴巴国际站店铺订购官方 ESP32-S2 飞控板。</p>
-            <a href="https://www.alibaba.com/product-detail/ESP32-S2-Quadcopter-Smart-Flight-Control_1601615481384.html" target="_blank" style="background: #ff6600; color: white; padding: 0.75rem 2rem; border-radius: var(--radius); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease;">
+            <a href={LINKS.alibaba} target="_blank" style="background: #ff6600; color: white; padding: 0.75rem 2rem; border-radius: var(--radius); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease;">
                 <img src="https://img.alicdn.com/tfs/TB1_9LpSXXXXXbVXVXXXXXXXXXX-32-32.png" alt="Alibaba" style="width: 16px; height: 16px; filter: brightness(0) invert(1);" />
                 在阿里巴巴订购样品
             </a>

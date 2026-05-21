@@ -1,19 +1,103 @@
 import { defineConfig } from 'astro/config';
+import starlight from '@astrojs/starlight';
+import { LINKS } from './src/config.ts';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://drone.imagrove.com',
-  output: 'static',
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en', 'zh'],
-    routing: {
-      prefixDefaultLocale: false,
-    },
-  },
-  markdown: {
-    shikiConfig: {
-      theme: 'github-dark',
-    },
+  devToolbar: { enabled: false },
+  integrations: [
+    starlight({
+      title: 'ESP32 Drone',
+      defaultLocale: 'root',
+      locales: {
+        root: { label: 'English', lang: 'en' },
+        zh: { label: '中文', lang: 'zh-CN' },
+      },
+      sidebar: [
+        {
+          label: 'Beginner',
+          translations: { 'zh-CN': '初级教程' },
+          collapsed: false,
+          items: [{ autogenerate: { directory: 'beginner' } }],
+        },
+        {
+          label: 'Intermediate',
+          translations: { 'zh-CN': '中级教程' },
+          collapsed: false,
+          items: [{ autogenerate: { directory: 'intermediate' } }],
+        },
+        {
+          label: 'Advanced',
+          translations: { 'zh-CN': '高级教程' },
+          collapsed: false,
+          items: [{ autogenerate: { directory: 'advanced' } }],
+        },
+      ],
+      customCss: [],
+      social: [
+        { icon: 'rocket', label: 'Order Samples on Alibaba', href: LINKS.alibaba },
+        { icon: 'email', label: 'Contact Us', href: LINKS.email },
+      ],
+    }),
+  ],
+  redirects: {
+    // Tutorial index pages
+    '/tutorials': '/beginner/first-flight',
+    '/zh/tutorials': '/zh/beginner/first-flight',
+    // English tutorials (remove /en/ prefix and number prefix)
+    '/tutorials/en/beginner/01-first-flight': '/beginner/first-flight',
+    '/tutorials/en/beginner/02-customization': '/beginner/customization',
+    '/tutorials/en/beginner/03-path-planning': '/beginner/path-planning',
+    '/tutorials/en/beginner/04-fpv': '/beginner/fpv',
+    '/tutorials/en/beginner/05-tracking': '/beginner/tracking',
+    '/tutorials/en/beginner/06-formation': '/beginner/formation',
+    '/tutorials/en/intermediate/01-customization': '/intermediate/customization',
+    '/tutorials/en/intermediate/02-pid-tuning': '/intermediate/pid-tuning',
+    '/tutorials/en/intermediate/03-altimeter': '/intermediate/altimeter',
+    '/tutorials/en/intermediate/04-attitude': '/intermediate/attitude',
+    '/tutorials/en/intermediate/05-data-analysis': '/intermediate/data-analysis',
+    '/tutorials/en/intermediate/06-obstacle-avoidance': '/intermediate/obstacle-avoidance',
+    '/tutorials/en/intermediate/07-vision': '/intermediate/vision',
+    '/tutorials/en/intermediate/08-telemetry': '/intermediate/telemetry',
+    '/tutorials/en/intermediate/09-multi-drone': '/intermediate/multi-drone',
+    '/tutorials/en/advanced/01-advanced-control': '/advanced/advanced-control',
+    '/tutorials/en/advanced/02-sensor-fusion': '/advanced/sensor-fusion',
+    '/tutorials/en/advanced/03-visual-navigation': '/advanced/visual-navigation',
+    '/tutorials/en/advanced/04-path-planning': '/advanced/path-planning',
+    '/tutorials/en/advanced/05-obstacle-avoidance': '/advanced/obstacle-avoidance',
+    '/tutorials/en/advanced/06-target-tracking': '/advanced/target-tracking',
+    '/tutorials/en/advanced/07-ai-recognition': '/advanced/ai-recognition',
+    '/tutorials/en/advanced/08-mesh-network': '/advanced/mesh-network',
+    '/tutorials/en/advanced/09-formation': '/advanced/formation',
+    '/tutorials/en/advanced/10-intelligent-task': '/advanced/intelligent-task',
+    '/tutorials/en/advanced/11-ultimate-challenge': '/advanced/ultimate-challenge',
+    // Chinese tutorials (move /zh/ to front, remove number prefix)
+    '/tutorials/zh/beginner/01-first-flight': '/zh/beginner/first-flight',
+    '/tutorials/zh/beginner/02-customization': '/zh/beginner/customization',
+    '/tutorials/zh/beginner/03-path-planning': '/zh/beginner/path-planning',
+    '/tutorials/zh/beginner/04-fpv': '/zh/beginner/fpv',
+    '/tutorials/zh/beginner/05-tracking': '/zh/beginner/tracking',
+    '/tutorials/zh/beginner/06-formation': '/zh/beginner/formation',
+    '/tutorials/zh/intermediate/01-customization': '/zh/intermediate/customization',
+    '/tutorials/zh/intermediate/02-pid-tuning': '/zh/intermediate/pid-tuning',
+    '/tutorials/zh/intermediate/03-altimeter': '/zh/intermediate/altimeter',
+    '/tutorials/zh/intermediate/04-attitude': '/zh/intermediate/attitude',
+    '/tutorials/zh/intermediate/05-data-analysis': '/zh/intermediate/data-analysis',
+    '/tutorials/zh/intermediate/06-obstacle-avoidance': '/zh/intermediate/obstacle-avoidance',
+    '/tutorials/zh/intermediate/07-vision': '/zh/intermediate/vision',
+    '/tutorials/zh/intermediate/08-telemetry': '/zh/intermediate/telemetry',
+    '/tutorials/zh/intermediate/09-multi-drone': '/zh/intermediate/multi-drone',
+    '/tutorials/zh/advanced/01-advanced-control': '/zh/advanced/advanced-control',
+    '/tutorials/zh/advanced/02-sensor-fusion': '/zh/advanced/sensor-fusion',
+    '/tutorials/zh/advanced/03-visual-navigation': '/zh/advanced/visual-navigation',
+    '/tutorials/zh/advanced/04-path-planning': '/zh/advanced/path-planning',
+    '/tutorials/zh/advanced/05-obstacle-avoidance': '/zh/advanced/obstacle-avoidance',
+    '/tutorials/zh/advanced/06-target-tracking': '/zh/advanced/target-tracking',
+    '/tutorials/zh/advanced/07-ai-recognition': '/zh/advanced/ai-recognition',
+    '/tutorials/zh/advanced/08-mesh-network': '/zh/advanced/mesh-network',
+    '/tutorials/zh/advanced/09-formation': '/zh/advanced/formation',
+    '/tutorials/zh/advanced/10-intelligent-task': '/zh/advanced/intelligent-task',
+    '/tutorials/zh/advanced/11-ultimate-challenge': '/zh/advanced/ultimate-challenge',
   },
 });

@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/utils';
+import { LINKS } from '../../config';
 
 interface Props {
   lang: Lang;
@@ -20,11 +21,16 @@ const t = useTranslations(lang);
   <a href={isZh ? "/zh/tutorials" : "/tutorials"} class={isTutorials ? "active" : ""}>{t('nav.tutorials')}</a>
   <a href={isZh ? "/zh/hardware" : "/hardware"} class={isHardware ? "active" : ""}>{t('nav.hardware')}</a>
   <a href={isZh ? "/zh/downloads" : "/downloads"} class={isDownloads ? "active" : ""}>{t('nav.downloads')}</a>
-  <a href="mailto:dr@imagrove.com" class="contact-nav-link">{t('nav.contact')}</a>
 </div>
 
-<div class="desktop-lang">
-  <a href={isZh ? "/" : "/zh/"}>{t('nav.lang')}</a>
+<div class="desktop-actions">
+  <a href={LINKS.alibaba} target="_blank" class="icon-link" title={isZh ? '在阿里巴巴订购样品' : 'Order Samples on Alibaba'}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+  </a>
+  <a href="mailto:dr@imagrove.com" class="icon-link" title={isZh ? '联系我们' : 'Contact Us'}>
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+  </a>
+  <a href={isZh ? "/" : "/zh/"} class="lang-link">{t('nav.lang')}</a>
 </div>
 
 <style>
@@ -48,11 +54,25 @@ const t = useTranslations(lang);
     color: var(--primary);
   }
 
-  .desktop-lang {
-    margin-left: 2rem;
+  .desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
   }
 
-  .desktop-lang a {
+  .icon-link {
+    color: var(--text-medium);
+    transition: color 0.2s ease;
+    min-height: auto;
+    min-width: auto;
+    padding: 0.25rem;
+  }
+
+  .icon-link:hover {
+    color: var(--primary);
+  }
+
+  .lang-link {
     color: var(--text-light);
     text-decoration: none;
     font-size: 0.9rem;
@@ -62,7 +82,7 @@ const t = useTranslations(lang);
     transition: all 0.2s ease;
   }
 
-  .desktop-lang a:hover {
+  .lang-link:hover {
     background: var(--bg-light);
     color: var(--primary);
   }
@@ -70,7 +90,7 @@ const t = useTranslations(lang);
   /* Hide on mobile */
   @media (max-width: 768px) {
     .desktop-nav,
-    .desktop-lang {
+    .desktop-actions {
       display: none !important;
     }
   }

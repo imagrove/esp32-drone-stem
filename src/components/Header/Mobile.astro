@@ -1,6 +1,7 @@
 ---
 import { useTranslations } from '../../i18n/utils';
 import type { Lang } from '../../i18n/utils';
+import { LINKS } from '../../config';
 
 interface Props {
   lang: Lang;
@@ -29,7 +30,14 @@ const t = useTranslations(lang);
     <a href={isZh ? "/zh/tutorials" : "/tutorials"} class={isTutorials ? "active" : ""}>{t('nav.tutorials')}</a>
     <a href={isZh ? "/zh/hardware" : "/hardware"} class={isHardware ? "active" : ""}>{t('nav.hardware')}</a>
     <a href={isZh ? "/zh/downloads" : "/downloads"} class={isDownloads ? "active" : ""}>{t('nav.downloads')}</a>
-    <a href="mailto:dr@imagrove.com">{t('nav.contact')}</a>
+    <a href={LINKS.alibaba} target="_blank" class="alibaba-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+      {isZh ? '订购样品' : 'Order Samples'}
+    </a>
+    <a href="mailto:dr@imagrove.com" class="contact-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+      {t('nav.contact')}
+    </a>
     <a href={isZh ? "/" : "/zh/"} class="lang-switch">{t('nav.lang')}</a>
   </div>
 </div>
@@ -95,6 +103,18 @@ const t = useTranslations(lang);
     margin-top: 0.5rem;
     padding-top: 1rem;
     border-top: 2px solid var(--border);
+  }
+
+  .mobile-menu-content .alibaba-link,
+  .mobile-menu-content .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .mobile-menu-content .alibaba-link svg,
+  .mobile-menu-content .contact-link svg {
+    flex-shrink: 0;
   }
 
   /* Show on mobile */

@@ -1,6 +1,6 @@
-# ESP32 Drone Website - Astro
+# ESP32 Drone Tutorial Website
 
-基于 Astro 构建的 ESP32 无人机教育网站。
+基于 [Astro Starlight](https://starlight.astro.build) 构建的 ESP32 无人机教育文档网站（中英双语）。
 
 ## 项目链接
 
@@ -8,151 +8,106 @@
 |------|------|
 | 🌐 **生产网站** | https://drone.imagrove.com |
 | 📁 **GitHub 仓库** | https://github.com/imagrove/drone-website |
-| ⚙️ **Vercel 设置** | https://vercel.com/imagroves-projects/drone/settings/build-and-deployment |
+| ⚙️ **Vercel 部署** | https://vercel.com/imagroves-projects/drone/settings/build-and-deployment |
 
 ## 技术栈
 
-- **框架**: [Astro](https://astro.build)
-- **内容**: Markdown + Content Collections
-- **样式**: 原生 CSS (极简灰白风格)
+- **框架**: [Astro](https://astro.build) + [Starlight](https://starlight.astro.build)
+- **内容**: Markdown（Starlight Content Collections）
+- **国际化**: Starlight 内置多语言系统
 - **部署**: Vercel + GitHub 自动部署
 
 ## 项目结构
 
-### 当前目录结构
-
 ```
 drone-website/
-├── src/                    # 源代码
-│   ├── content/           # 内容集合
-│   │   └── tutorials/     # 教程内容
-│   │       ├── en/        # 英文教程
-│   │       └── zh/        # 中文教程
-│   ├── i18n/              # 国际化配置
-│   │   ├── ui.ts          # 翻译文本
-│   │   └── utils.ts       # i18n 工具函数
-│   ├── layouts/           # 页面布局
-│   └── pages/             # 路由页面
-│       ├── index.astro    # 统一模板（中英文共用）
-│       ├── hardware.astro # 硬件页面
-│       ├── downloads.astro# 下载页面
-│       ├── tutorials/     # 教程页面
-│       └── zh/            # 中文路由入口
-│           └── index.astro# 中文首页（导入统一模板）
-├── public/                # 静态资源
-│   └── robots.txt         # 爬虫规则
-├── astro.config.mjs       # Astro 配置
-├── vercel.json            # Vercel 配置
-├── package.json           # 依赖配置
-└── README.md              # 项目文档
+├── src/
+│   ├── content/docs/          # Starlight 文档内容
+│   │   ├── beginner/          # 英文初级教程
+│   │   ├── intermediate/      # 英文中级教程
+│   │   ├── advanced/          # 英文高级教程
+│   │   └── zh/                # 中文教程（镜像结构）
+│   │       ├── beginner/
+│   │       ├── intermediate/
+│   │       └── advanced/
+│   ├── pages/                 # 自定义页面（非 Starlight 管理）
+│   │   ├── index.astro        # 英文首页
+│   │   ├── hardware.astro     # 英文硬件页
+│   │   ├── downloads.astro    # 英文下载页
+│   │   └── zh/                # 中文自定义页面
+│   ├── components/Header/     # 自定义页面的 Header 组件
+│   ├── config.ts              # 全局链接配置（Alibaba 等）
+│   └── _archive/              # 归档旧文件（不参与构建）
+├── public/                    # 静态资源
+├── astro.config.mjs           # Astro + Starlight 配置
+├── vercel.json                # Vercel 配置
+└── package.json
 ```
 
-### 国际化（i18n）架构设计
+## 国际化
 
-本项目采用**统一模板 + 路由入口**的多语言架构：
+Starlight 自动处理多语言路由：
 
-#### 设计原则
+| URL 路径 | 语言 | 内容来源 |
+|----------|------|----------|
+| `/beginner/first-flight` | English | `src/content/docs/beginner/first-flight.md` |
+| `/zh/beginner/first-flight` | 中文 | `src/content/docs/zh/beginner/first-flight.md` |
+| `/` | English | `src/pages/index.astro`（自定义页面） |
+| `/zh/` | 中文 | `src/pages/zh/index.astro`（自定义页面） |
 
-1. **统一模板**：`src/pages/index.astro` 是唯一的首页模板，包含所有渲染逻辑
-2. **路由入口**：`src/pages/zh/index.astro` 仅作为中文路由入口，导入并渲染统一模板
-3. **语言检测**：模板通过 `getLangFromUrl()` 函数自动识别 URL 路径，返回对应语言内容
+英文为默认语言（根路径），中文在 `/zh/` 路径下。
 
-#### 路由映射
+## 配置管理
 
-| URL 路径 | 源文件 | 语言 | 说明 |
-|----------|--------|------|------|
-| `/` | `src/pages/index.astro` | 英文 | 默认语言，根路径 |
-| `/zh/` | `src/pages/zh/index.astro` → `index.astro` | 中文 | 路由入口导入统一模板 |
+### 外部链接
 
-#### 配置说明
+所有外部链接集中在 `src/config.ts`，修改一处即全站生效：
 
-```javascript
-// astro.config.mjs
-i18n: {
-  defaultLocale: 'en',
-  locales: ['en', 'zh'],
-  routing: {
-    prefixDefaultLocale: false,  // 英文在根路径，不添加 /en/ 前缀
-  },
-}
+```ts
+// src/config.ts
+export const LINKS = {
+  alibaba: 'https://www.alibaba.com/product-detail/...',
+  email: 'mailto:dr@imagrove.com',
+};
 ```
 
-#### 为什么需要 zh/index.astro？
+### Starlight 配置
 
-当 `prefixDefaultLocale: false` 时，Astro 的 i18n 路由只将 `index.astro` 映射到根路径 `/`，不会自动生成 `/zh/` 子目录。因此需要手动创建 `zh/index.astro` 作为路由入口：
-
-```astro
----
-// src/pages/zh/index.astro
-import Index from '../index.astro';
----
-<Index />
-```
-
-这样既能保持英文在根路径（有利于 Google SEO），又能让中文通过 `/zh/` 访问，同时完全复用同一套模板代码。
-
-### 相关文档
-
-- 初级教材: `1.1初级教材.md`
-- 中级教材: `1.2中级教材.md`
-- 高级教材: `1.3高级教材.md`
-
-### 验证部署
-
-部署成功后，验证以下 URL：
-
-- 英文首页：https://drone.imagrove.com/
-- 中文首页：https://drone.imagrove.com/zh/
-- 硬件页面：https://drone.imagrove.com/hardware
-- 下载页面：https://drone.imagrove.com/downloads
-- 教程页面：https://drone.imagrove.com/tutorials
-- 站点地图：https://drone.imagrove.com/sitemap.xml
+侧边栏、社交图标、语言等配置在 `astro.config.mjs` 中管理。
 
 ## 开发命令
 
 ```bash
-# 安装依赖
-npm install
-
-# 开发服务器
-npm run dev
-
-# 构建生产版本
-npm run build
-
-# 预览构建结果
-npm run preview
+npm install        # 安装依赖
+npm run dev        # 开发服务器 (localhost:4321)
+npm run build      # 构建生产版本
+npm run preview    # 预览构建结果
 ```
 
 ## 内容管理
 
-教程内容使用 Markdown 文件管理，位于 `src/content/tutorials/`。
+教程使用 Markdown 编写，位于 `src/content/docs/`。
 
-### 创建新教程
+### 添加新教程
 
-1. 在 `src/content/tutorials/en/` 或 `zh/` 创建 `.md` 文件
-2. 添加 front matter 元数据
-3. 使用 Markdown 编写内容
-
-### Front Matter 格式
+1. 在对应目录创建 `.md` 文件（如 `src/content/docs/beginner/new-topic.md`）
+2. 添加 front matter：
 
 ```yaml
 ---
-title: "教程标题"
-description: "教程描述"
-level: beginner | intermediate | advanced
-order: 1
-duration: "2 hours"
-prerequisites: ["前置技能"]
-draft: false
+title: 教程标题
+description: 简短描述
+sidebar:
+  order: 7
 ---
 ```
 
+3. Starlight 自动生成侧边栏和前后翻页导航
+4. 中文版放到 `src/content/docs/zh/` 对应目录下
+
 ## 部署
 
-### 自动部署（推荐）
-
-项目已配置 GitHub + Vercel 自动部署。推送代码到 GitHub 后，Vercel 会自动构建并部署。
+推送到 GitHub 后 Vercel 自动构建部署：
 
 ```bash
 git add -A
@@ -160,90 +115,16 @@ git commit -m "更新内容"
 git push origin main
 ```
 
-### ⚠️ 重要：Vercel 配置
+### Vercel 构建设置
 
-如果创建新项目或需要重新配置，按以下步骤设置：
+| 设置项 | 值 |
+|--------|-----|
+| Framework Preset | Astro |
+| Build Command | `npm run build` |
+| Output Directory | `dist` |
+| Install Command | `npm install` |
 
-#### 1. 连接 GitHub 仓库
+## 参考链接
 
-1. 访问 https://vercel.com/imagroves-projects/drone/settings/git
-2. 在 **Connected Git Repository** 部分点击 **Connect**
-3. 选择 **GitHub** → 选择 `imagrove/drone-website` 仓库
-4. 保存
-
-#### 2. 配置构建设置
-
-1. 访问 https://vercel.com/imagroves-projects/drone/settings/build-and-deployment
-2. 修改以下配置：
-
-| 设置项 | 值 | 说明 |
-|--------|-----|------|
-| **Framework Preset** | `Astro` | 框架类型 |
-| **Build Command** | `npm run build` | 构建命令 |
-| **Output Directory** | `dist` | ⚠️ **必须修改！** 默认为 `public` |
-| **Install Command** | `npm install` | 依赖安装 |
-
-3. 点击 **Save** 保存
-
-> **注意**：如果 Output Directory 设置不正确（不是 `dist`），网站会返回 404 错误。详见下方的「故障排除」章节。
-
-#### 3. 配置自定义域名
-
-1. 访问 https://vercel.com/imagroves-projects/drone/settings/domains
-2. 添加域名：`drone.imagrove.com`
-3. 按提示配置 DNS
-
-### 手动部署（备用）
-
-如果自动部署失败，可以使用 Vercel CLI 手动部署：
-
-```bash
-# 安装 Vercel CLI
-npm i -g vercel
-
-# 登录
-vercel login
-
-# 部署到生产环境
-vercel --prod
-```
-
----
-
-## 故障排除
-
-### 问题：网站返回 404 错误
-
-**症状**：
-- 本地构建成功 (`npm run build` 生成 `dist/` 目录)
-- Vercel 部署状态显示 "Ready"
-- 访问网站返回 `HTTP 404` 或 `NOT_FOUND`
-- Vercel 部署日志显示 `Builds: . [0ms]`
-
-**根本原因**：
-Vercel 项目的 **Output Directory** 默认为 `public` 或 `.`，而 Astro 构建输出到 `dist` 目录。
-
-**解决方案**：
-访问 https://vercel.com/imagroves-projects/drone-website/settings/build-and-deployment
-将 **Output Directory** 修改为 `dist`，然后重新部署。
-
-### 常用命令
-
-```bash
-# 本地构建测试
-npm run build
-
-# 检查 dist 目录
-ls -la dist/
-
-# 检查部署状态
-vercel ls drone
-
-# 查看项目设置
-vercel project inspect drone
-```
-
-### 参考链接
-
+- [Starlight 文档](https://starlight.astro.build)
 - [Astro 部署指南 - Vercel](https://docs.astro.build/en/guides/deploy/vercel/)
-- [Vercel 项目设置文档](https://vercel.com/docs/concepts/projects/project-settings)
