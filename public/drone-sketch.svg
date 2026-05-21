@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 720" width="1280" height="720" style="background:#f8f8f6">
+  <defs>
+    <style>
+      .line { fill: none; stroke: #333; stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; }
+      .line-thin { fill: none; stroke: #555; stroke-width: 0.7; stroke-linecap: round; stroke-linejoin: round; }
+      .line-thick { fill: none; stroke: #222; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+      .fill-light { fill: #f0eeeb; stroke: #333; stroke-width: 1.0; }
+      .fill-white { fill: #fafaf8; stroke: #333; stroke-width: 1.0; }
+      .fill-med { fill: #e8e6e3; stroke: #333; stroke-width: 1.0; }
+      .fill-dark { fill: #d5d3cf; stroke: #333; stroke-width: 1.0; }
+      .pcb-bg { fill: #f2f0ec; stroke: #444; stroke-width: 1.2; }
+      .pcb-line { fill: none; stroke: #666; stroke-width: 0.5; }
+      .motor { fill: #e0deda; stroke: #333; stroke-width: 1.3; }
+      .prop { fill: #ede9e4; stroke: #2a2a2a; stroke-width: 1.0; }
+      .guard { fill: none; stroke: #333; stroke-width: 1.3; }
+      .arm { fill: #e5e3df; stroke: #2a2a2a; stroke-width: 1.3; }
+    </style>
+  </defs>
+
+  <!-- ==================== 整体偏移居中 ==================== -->
+  <g transform="translate(640,360)">
+
+  <!-- ==================== 机架中心板 ==================== -->
+  <!-- 中心主板（方形，微透视） -->
+  <rect class="pcb-bg" x="-145" y="-120" width="290" height="240" rx="8"/>
+  <!-- PCB 走线纹路 -->
+  <rect class="pcb-line" x="-130" y="-105" width="260" height="210" rx="4"/>
+  <!-- 芯片区域 左上 -->
+  <rect class="fill-med" x="-120" y="-100" width="110" height="85" rx="3"/>
+  <rect class="pcb-line" x="-115" y="-95" width="100" height="75" rx="2"/>
+  <!-- 芯片区域 右上 -->
+  <rect class="fill-med" x="-5" y="-100" width="110" height="85" rx="3"/>
+  <rect class="pcb-line" x="0" y="-95" width="100" height="75" rx="2"/>
+  <!-- 芯片区域 下方 -->
+  <rect class="fill-light" x="-120" y="-5" width="240" height="95" rx="3"/>
+  <rect class="pcb-line" x="-115" y="0" width="230" height="85" rx="2"/>
+
+  <!-- PCB 细节线条 -->
+  <line class="pcb-line" x1="-120" y1="-15" x2="120" y2="-15"/>
+  <line class="pcb-line" x1="-60" y1="-100" x2="-60" y2="90"/>
+  <line class="pcb-line" x1="5" y1="-100" x2="5" y2="90"/>
+
+  <!-- 连接器 上边 -->
+  <rect class="fill-dark" x="-80" y="-128" width="160" height="14" rx="2"/>
+  <rect class="fill-dark" x="-85" y="-130" width="170" height="6" rx="1"/>
+  <!-- 引脚 -->
+  <g class="pcb-line">
+    <line x1="-70" y1="-130" x2="-70" y2="-136"/>
+    <line x1="-55" y1="-130" x2="-55" y2="-136"/>
+    <line x1="-40" y1="-130" x2="-40" y2="-136"/>
+    <line x1="-25" y1="-130" x2="-25" y2="-136"/>
+    <line x1="-10" y1="-130" x2="-10" y2="-136"/>
+    <line x1="5" y1="-130" x2="5" y2="-136"/>
+    <line x1="20" y1="-130" x2="20" y2="-136"/>
+    <line x1="35" y1="-130" x2="35" y2="-136"/>
+    <line x1="50" y1="-130" x2="50" y2="-136"/>
+    <line x1="65" y1="-130" x2="65" y2="-136"/>
+  </g>
+  <!-- 连接器 下边 -->
+  <rect class="fill-dark" x="-80" y="114" width="160" height="14" rx="2"/>
+  <g class="pcb-line">
+    <line x1="-70" y1="128" x2="-70" y2="134"/>
+    <line x1="-55" y1="128" x2="-55" y2="134"/>
+    <line x1="-40" y1="128" x2="-40" y2="134"/>
+    <line x1="-25" y1="128" x2="-25" y2="134"/>
+    <line x1="-10" y1="128" x2="-10" y2="134"/>
+    <line x1="5" y1="128" x2="5" y2="134"/>
+    <line x1="20" y1="128" x2="20" y2="134"/>
+    <line x1="35" y1="128" x2="35" y2="134"/>
+    <line x1="50" y1="128" x2="50" y2="134"/>
+    <line x1="65" y1="128" x2="65" y2="134"/>
+  </g>
+
+  <!-- 小芯片 散落在PCB上 -->
+  <rect class="fill-dark" x="-55" y="-85" width="22" height="16" rx="1"/>
+  <rect class="fill-dark" x="-25" y="-85" width="22" height="16" rx="1"/>
+  <rect class="fill-dark" x="5" y="-85" width="22" height="16" rx="1"/>
+  <rect class="fill-dark" x="35" y="-85" width="22" height="16" rx="1"/>
+  <rect class="fill-dark" x="-55" y="-60" width="30" height="22" rx="1"/>
+  <rect class="fill-dark" x="28" y="-60" width="30" height="22" rx="1"/>
+  <!-- 电容 -->
+  <circle class="fill-dark" cx="-95" cy="-70" r="7"/>
+  <circle class="fill-dark" cx="-95" cy="-50" r="7"/>
+  <circle class="fill-dark" cx="95" cy="-70" r="7"/>
+  <circle class="fill-dark" cx="95" cy="-50" r="7"/>
+  <!-- 模块芯片中央 -->
+  <rect class="fill-med" x="-45" y="10" width="90" height="65" rx="3"/>
+  <rect class="pcb-line" x="-40" y="15" width="80" height="55" rx="2"/>
+  <!-- 芯片文字模拟 -->
+  <line class="pcb-line" x1="-35" y1="28" x2="35" y2="28"/>
+  <line class="pcb-line" x1="-35" y1="36" x2="20" y2="36"/>
+  <line class="pcb-line" x1="-35" y1="44" x2="30" y2="44"/>
+  <line class="pcb-line" x1="-35" y1="52" x2="25" y2="52"/>
+  <line class="pcb-line" x1="-35" y1="60" x2="35" y2="60"/>
+
+  <!-- 电池连接器（下方突出） -->
+  <rect class="fill-dark" x="-40" y="128" width="80" height="40" rx="4"/>
+  <rect class="fill-med" x="-35" y="132" width="70" height="32" rx="3"/>
+  <rect class="line" x="-28" y="136" width="24" height="20" rx="2"/>
+  <rect class="line" x="4" y="136" width="24" height="20" rx="2"/>
+
+  <!-- ==================== 四条机臂 ==================== -->
+
+  <!-- 左上机臂 -->
+  <path class="arm" d="M -130,-100 L -220,-190 Q -240,-210 -255,-200 L -285,-170 Q -295,-155 -275,-140 L -220,-120 Q -200,-115 -175,-100 Z"/>
+  <path class="line-thin" d="M -145,-105 L -235,-195 Q -250,-208 -265,-198 L -275,-178 Q -288,-160 -268,-148 L -225,-128 Q -205,-118 -180,-108"/>
+
+  <!-- 右上机臂 -->
+  <path class="arm" d="M 130,-100 L 220,-190 Q 240,-210 255,-200 L 285,-170 Q 295,-155 275,-140 L 220,-120 Q 200,-115 175,-100 Z"/>
+  <path class="line-thin" d="M 145,-105 L 235,-195 Q 250,-208 265,-198 L 275,-178 Q 288,-160 268,-148 L 225,-128 Q 205,-118 180,-108"/>
+
+  <!-- 左下机臂 -->
+  <path class="arm" d="M -130,100 L -220,190 Q -240,210 -255,200 L -285,170 Q -295,155 -275,140 L -220,120 Q -200,115 -175,100 Z"/>
+  <path class="line-thin" d="M -145,105 L -235,195 Q -250,208 -265,198 L -275,178 Q -288,160 -268,148 L -225,128 Q -205,118 -180,108"/>
+
+  <!-- 右下机臂 -->
+  <path class="arm" d="M 130,100 L 220,190 Q 240,210 255,200 L 285,170 Q 295,155 275,140 L 220,120 Q 200,115 175,100 Z"/>
+  <path class="line-thin" d="M 145,105 L 235,195 Q 250,208 265,198 L 275,178 Q 288,160 268,148 L 225,128 Q 205,118 180,108"/>
+
+  <!-- ==================== 螺旋桨保护圈 ==================== -->
+
+  <!-- 左上螺旋桨保护圈 -->
+  <ellipse class="guard" cx="-320" cy="-230" rx="135" ry="125"/>
+  <ellipse class="guard" cx="-320" cy="-230" rx="128" ry="118"/>
+  <!-- 内圈支撑 -->
+  <line class="line-thin" x1="-320" y1="-355" x2="-320" y2="-345"/>
+  <line class="line-thin" x1="-450" y1="-230" x2="-440" y2="-230"/>
+  <line class="line-thin" x1="-320" y1="-108" x2="-320" y2="-118"/>
+  <line class="line-thin" x1="-195" y1="-230" x2="-205" y2="-230"/>
+  <!-- 连接杆 左上 -->
+  <rect class="arm" x="-290" y="-260" width="50" height="18" rx="4" transform="rotate(-45,-265,-251)"/>
+
+  <!-- 右上螺旋桨保护圈 -->
+  <ellipse class="guard" cx="320" cy="-230" rx="135" ry="125"/>
+  <ellipse class="guard" cx="320" cy="-230" rx="128" ry="118"/>
+  <line class="line-thin" x1="320" y1="-355" x2="320" y2="-345"/>
+  <line class="line-thin" x1="450" y1="-230" x2="440" y2="-230"/>
+  <line class="line-thin" x1="320" y1="-108" x2="320" y2="-118"/>
+  <line class="line-thin" x1="195" y1="-230" x2="205" y2="-230"/>
+
+  <!-- 左下螺旋桨保护圈 -->
+  <ellipse class="guard" cx="-320" cy="230" rx="135" ry="125"/>
+  <ellipse class="guard" cx="-320" cy="230" rx="128" ry="118"/>
+  <line class="line-thin" x1="-320" y1="105" x2="-320" y2="115"/>
+  <line class="line-thin" x1="-450" y1="230" x2="-440" y2="230"/>
+  <line class="line-thin" x1="-320" y1="352" x2="-320" y2="342"/>
+  <line class="line-thin" x1="-195" y1="230" x2="-205" y2="230"/>
+
+  <!-- 右下螺旋桨保护圈 -->
+  <ellipse class="guard" cx="320" cy="230" rx="135" ry="125"/>
+  <ellipse class="guard" cx="320" cy="230" rx="128" ry="118"/>
+  <line class="line-thin" x1="320" y1="105" x2="320" y2="115"/>
+  <line class="line-thin" x1="450" y1="230" x2="440" y2="230"/>
+  <line class="line-thin" x1="320" y1="352" x2="320" y2="342"/>
+  <line class="line-thin" x1="195" y1="230" x2="205" y2="230"/>
+
+  <!-- ==================== 电机 ==================== -->
+
+  <!-- 左上电机 -->
+  <circle class="motor" cx="-320" cy="-230" r="32"/>
+  <circle class="motor" cx="-320" cy="-230" r="25"/>
+  <circle class="fill-dark" cx="-320" cy="-230" r="16"/>
+  <circle class="fill-med" cx="-320" cy="-230" r="10"/>
+  <circle class="line" cx="-320" cy="-230" r="6"/>
+  <!-- 电机螺栓 -->
+  <circle class="fill-dark" cx="-320" cy="-262" r="4"/>
+  <circle class="fill-dark" cx="-320" cy="-198" r="4"/>
+  <circle class="fill-dark" cx="-352" cy="-230" r="4"/>
+  <circle class="fill-dark" cx="-288" cy="-230" r="4"/>
+
+  <!-- 右上电机 -->
+  <circle class="motor" cx="320" cy="-230" r="32"/>
+  <circle class="motor" cx="320" cy="-230" r="25"/>
+  <circle class="fill-dark" cx="320" cy="-230" r="16"/>
+  <circle class="fill-med" cx="320" cy="-230" r="10"/>
+  <circle class="line" cx="320" cy="-230" r="6"/>
+  <circle class="fill-dark" cx="320" cy="-262" r="4"/>
+  <circle class="fill-dark" cx="320" cy="-198" r="4"/>
+  <circle class="fill-dark" cx="352" cy="-230" r="4"/>
+  <circle class="fill-dark" cx="288" cy="-230" r="4"/>
+
+  <!-- 左下电机 -->
+  <circle class="motor" cx="-320" cy="230" r="32"/>
+  <circle class="motor" cx="-320" cy="230" r="25"/>
+  <circle class="fill-dark" cx="-320" cy="230" r="16"/>
+  <circle class="fill-med" cx="-320" cy="230" r="10"/>
+  <circle class="line" cx="-320" cy="230" r="6"/>
+  <circle class="fill-dark" cx="-320" cy="198" r="4"/>
+  <circle class="fill-dark" cx="-320" cy="262" r="4"/>
+  <circle class="fill-dark" cx="-352" cy="230" r="4"/>
+  <circle class="fill-dark" cx="-288" cy="230" r="4"/>
+
+  <!-- 右下电机 -->
+  <circle class="motor" cx="320" cy="230" r="32"/>
+  <circle class="motor" cx="320" cy="230" r="25"/>
+  <circle class="fill-dark" cx="320" cy="230" r="16"/>
+  <circle class="fill-med" cx="320" cy="230" r="10"/>
+  <circle class="line" cx="320" cy="230" r="6"/>
+  <circle class="fill-dark" cx="320" cy="198" r="4"/>
+  <circle class="fill-dark" cx="320" cy="262" r="4"/>
+  <circle class="fill-dark" cx="352" cy="230" r="4"/>
+  <circle class="fill-dark" cx="288" cy="230" r="4"/>
+
+  <!-- ==================== 螺旋桨叶片 ==================== -->
+
+  <!-- 左上螺旋桨 (顺时针布局) -->
+  <!-- 叶片1 -->
+  <path class="prop" d="M -320,-230 C -295,-240 -265,-265 -250,-290 C -240,-310 -245,-325 -258,-318 C -275,-305 -295,-280 -308,-255 Z"/>
+  <!-- 叶片2 -->
+  <path class="prop" d="M -320,-230 C -345,-220 -375,-195 -390,-170 C -400,-150 -395,-135 -382,-142 C -365,-155 -345,-180 -332,-205 Z"/>
+  <!-- 叶片3 -->
+  <path class="prop" d="M -320,-230 C -310,-255 -285,-285 -260,-300 C -240,-310 -228,-305 -235,-292 C -248,-275 -273,-255 -298,-242 Z"/>
+  <!-- 叶片4 -->
+  <path class="prop" d="M -320,-230 C -330,-205 -355,-175 -380,-160 C -400,-148 -412,-153 -405,-166 C -392,-183 -367,-203 -342,-218 Z"/>
+
+  <!-- 右上螺旋桨 -->
+  <path class="prop" d="M 320,-230 C 295,-240 265,-265 250,-290 C 240,-310 245,-325 258,-318 C 275,-305 295,-280 308,-255 Z"/>
+  <path class="prop" d="M 320,-230 C 345,-220 375,-195 390,-170 C 400,-150 395,-135 382,-142 C 365,-155 345,-180 332,-205 Z"/>
+  <path class="prop" d="M 320,-230 C 310,-255 285,-285 260,-300 C 240,-310 228,-305 235,-292 C 248,-275 273,-255 298,-242 Z"/>
+  <path class="prop" d="M 320,-230 C 330,-205 355,-175 380,-160 C 400,-148 412,-153 405,-166 C 392,-183 367,-203 342,-218 Z"/>
+
+  <!-- 左下螺旋桨 -->
+  <path class="prop" d="M -320,230 C -295,240 -265,265 -250,290 C -240,310 -245,325 -258,318 C -275,305 -295,280 -308,255 Z"/>
+  <path class="prop" d="M -320,230 C -345,220 -375,195 -390,170 C -400,150 -395,135 -382,142 C -365,155 -345,180 -332,205 Z"/>
+  <path class="prop" d="M -320,230 C -310,205 -285,175 -260,160 C -240,148 -228,153 -235,166 C -248,183 -273,203 -298,218 Z"/>
+  <path class="prop" d="M -320,230 C -330,255 -355,285 -380,300 C -400,312 -412,307 -405,294 C -392,277 -367,257 -342,242 Z"/>
+
+  <!-- 右下螺旋桨 -->
+  <path class="prop" d="M 320,230 C 295,240 265,265 250,290 C 240,310 245,325 258,318 C 275,305 295,280 308,255 Z"/>
+  <path class="prop" d="M 320,230 C 345,220 375,195 390,170 C 400,150 395,135 382,142 C 365,155 345,180 332,205 Z"/>
+  <path class="prop" d="M 320,230 C 310,205 285,175 260,160 C 240,148 228,153 235,166 C 248,183 273,203 298,218 Z"/>
+  <path class="prop" d="M 320,230 C 330,255 355,285 380,300 C 400,312 412,307 405,294 C 392,277 367,257 342,242 Z"/>
+
+  <!-- ==================== 电机座（六角形） ==================== -->
+  <!-- 左上 -->
+  <polygon class="fill-dark" points="-310,-215 -300,-230 -310,-245 -330,-245 -340,-230 -330,-215" />
+  <!-- 右上 -->
+  <polygon class="fill-dark" points="310,-215 300,-230 310,-245 330,-245 340,-230 330,-215" />
+  <!-- 左下 -->
+  <polygon class="fill-dark" points="-310,215 -300,230 -310,245 -330,245 -340,230 -330,215" />
+  <!-- 右下 -->
+  <polygon class="fill-dark" points="310,215 300,230 310,245 330,245 340,230 330,215" />
+
+  <!-- ==================== 电池线缆 ==================== -->
+  <path class="line-thick" d="M -20,145 Q -30,180 -20,200 Q 0,220 20,200 Q 30,175 20,145" fill="none"/>
+  <path style="fill:none;stroke:#111;stroke-width:6;stroke-linecap:round;" d="M -10,155 Q -40,185 -35,210 Q -25,230 0,235"/>
+
+  <!-- ==================== 机身螺丝 ==================== -->
+  <circle class="fill-dark" cx="-135" cy="-115" r="7"/>
+  <line class="line-thin" x1="-140" y1="-115" x2="-130" y2="-115"/>
+  <line class="line-thin" x1="-135" y1="-120" x2="-135" y2="-110"/>
+
+  <circle class="fill-dark" cx="135" cy="-115" r="7"/>
+  <line class="line-thin" x1="130" y1="-115" x2="140" y2="-115"/>
+  <line class="line-thin" x1="135" y1="-120" x2="135" y2="-110"/>
+
+  <circle class="fill-dark" cx="-135" cy="115" r="7"/>
+  <line class="line-thin" x1="-140" y1="115" x2="-130" y2="115"/>
+  <line class="line-thin" x1="-135" y1="110" x2="-135" y2="120"/>
+
+  <circle class="fill-dark" cx="135" cy="115" r="7"/>
+  <line class="line-thin" x1="130" y1="115" x2="140" y2="115"/>
+  <line class="line-thin" x1="135" y1="110" x2="135" y2="120"/>
+
+  <!-- ==================== 摄像头/传感器 ==================== -->
+  <rect class="fill-dark" x="-18" y="-145" width="36" height="20" rx="3"/>
+  <rect class="fill-med" x="-13" y="-143" width="26" height="16" rx="2"/>
+  <circle class="fill-dark" cx="0" cy="-135" r="6"/>
+  <circle class="fill-med" cx="0" cy="-135" r="3"/>
+
+  </g>
+</svg>

@@ -1,4 +1,5 @@
 {
+  "name": "drone",
   "version": 2,
   "framework": "astro",
   "buildCommand": "npm run build",

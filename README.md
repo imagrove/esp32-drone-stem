@@ -8,7 +8,7 @@
 |------|------|
 | 🌐 **生产网站** | https://drone.imagrove.com |
 | 📁 **GitHub 仓库** | https://github.com/imagrove/drone-website |
-| ⚙️ **Vercel 设置** | https://vercel.com/imagroves-projects/drone-website/settings/build-and-deployment |
+| ⚙️ **Vercel 设置** | https://vercel.com/imagroves-projects/drone/settings/build-and-deployment |
 
 ## 技术栈
 
@@ -166,14 +166,14 @@ git push origin main
 
 #### 1. 连接 GitHub 仓库
 
-1. 访问 https://vercel.com/imagroves-projects/drone-website/settings/git
+1. 访问 https://vercel.com/imagroves-projects/drone/settings/git
 2. 在 **Connected Git Repository** 部分点击 **Connect**
 3. 选择 **GitHub** → 选择 `imagrove/drone-website` 仓库
 4. 保存
 
 #### 2. 配置构建设置
 
-1. 访问 https://vercel.com/imagroves-projects/drone-website/settings/build-and-deployment
+1. 访问 https://vercel.com/imagroves-projects/drone/settings/build-and-deployment
 2. 修改以下配置：
 
 | 设置项 | 值 | 说明 |
@@ -189,7 +189,7 @@ git push origin main
 
 #### 3. 配置自定义域名
 
-1. 访问 https://vercel.com/imagroves-projects/drone-website/settings/domains
+1. 访问 https://vercel.com/imagroves-projects/drone/settings/domains
 2. 添加域名：`drone.imagrove.com`
 3. 按提示配置 DNS
 
@@ -237,10 +237,10 @@ npm run build
 ls -la dist/
 
 # 检查部署状态
-vercel ls drone-website
+vercel ls drone
 
 # 查看项目设置
-vercel project inspect drone-website
+vercel project inspect drone
 ```
 
 ### 参考链接

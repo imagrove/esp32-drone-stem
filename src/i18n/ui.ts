@@ -50,9 +50,12 @@ export const ui = {
     
     // Footer
     'footer.contact': 'Contact Us',
+    'footer.email': 'Email: dr@imagrove.com',
     'footer.whatsapp': 'WhatsApp',
     'footer.wechat': 'WeChat',
     'footer.youtube': 'YouTube Channel',
+    'footer.x': 'X (Twitter)',
+    'footer.facebook': 'Facebook',
     'footer.copyright': '© 2026 ESP32 Drone. All rights reserved.',
   },
   zh: {
@@ -61,6 +64,7 @@ export const ui = {
     'nav.tutorials': '教程',
     'nav.hardware': '硬件',
     'nav.downloads': '下载',
+    'nav.contact': '联系我们',
     'nav.lang': 'EN',
     
     // Home page
@@ -69,6 +73,7 @@ export const ui = {
     'home.cta.start': '开始学习',
     'home.cta.hardware': '了解硬件',
     'home.cta.downloads': '下载资源',
+    'home.cta.contact': '商务咨询 / 联系我们',
     
     // Features
     'feature.curriculum.title': '三级课程体系',
@@ -104,9 +109,12 @@ export const ui = {
     
     // Footer
     'footer.contact': '联系我们',
+    'footer.email': '邮件: dr@imagrove.com',
     'footer.whatsapp': 'WhatsApp',
     'footer.wechat': '微信',
     'footer.youtube': 'YouTube 频道',
+    'footer.x': 'X (Twitter)',
+    'footer.facebook': 'Facebook',
     'footer.copyright': '© 2026 ESP32 Drone. 保留所有权利。',
   },
 } as const;
