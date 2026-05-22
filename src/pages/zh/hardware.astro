@@ -20,42 +20,42 @@ import { LINKS } from '../../config';
 
         <h2 style="margin: 2rem 0 1rem;">主要规格</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">主控芯片</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">ESP32-S2 / ESP32-S3</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">Xtensa 32位 LX7 双核，240MHz，320KB SRAM (S2) / 512KB SRAM (S3)</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">无线连接</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Wi-Fi 802.11 b/g/n</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">2.4GHz，支持 AP/STA 模式。ESP32-S3 还支持蓝牙 5.0 (LE)</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">惯性传感器</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">MPU6050</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">6轴 IMU（3轴加速度计 + 3轴陀螺仪），I2C 接口</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">电机</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">715 有刷电机 x4</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">7mm x 15mm 空心杯有刷电机，ESP32 直接 PWM 驱动</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">电源</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">3.7V 1S 锂电</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">单节锂电池，带充电管理电路</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">飞控固件</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">基于 Crazyflie</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">基于 Bitcraze Crazyflie 开源固件（GPL 3.0）</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">开发框架</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">ESP-IDF v5.0</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">乐鑫官方 SDK，基于 FreeRTOS 实时操作系统</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">机架</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">亚克力 / 3D 打印</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">约 65mm 轴距微型四轴，开源 STL 文件可下载</div>
@@ -63,7 +63,7 @@ import { LINKS } from '../../config';
         </div>
 
         <h2 style="margin: 2rem 0 1rem;">飞行模式</h2>
-        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem;">
+        <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead style="background: var(--bg-light);">
                     <tr>
@@ -127,7 +127,7 @@ I2C 传感器：
         </ul>
 
         <h2 style="margin: 2rem 0 1rem;">采购与样品</h2>
-        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
+        <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
             <p style="margin-bottom: 1.5rem; color: var(--text-medium);">准备好开始您的无人机项目了吗？您可以直接在我们的阿里巴巴国际站店铺订购官方 ESP32-S2 飞控板。</p>
             <a href={LINKS.alibaba} target="_blank" style="background: #ff6600; color: white; padding: 0.75rem 2rem; border-radius: var(--radius); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease;">
                 <img src="https://img.alicdn.com/tfs/TB1_9LpSXXXXXbVXVXXXXXXXXXX-32-32.png" alt="Alibaba" style="width: 16px; height: 16px; filter: brightness(0) invert(1);" />

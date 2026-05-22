@@ -20,42 +20,42 @@ import { LINKS } from '../config';
 
         <h2 style="margin: 2rem 0 1rem;">Main Specifications</h2>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Main Controller</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">ESP32-S2 / ESP32-S3</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">Xtensa 32-bit LX7 dual-core, 240MHz, 320KB SRAM (S2) / 512KB SRAM (S3)</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Wireless</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Wi-Fi 802.11 b/g/n</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">2.4GHz, AP/STA modes. ESP32-S3 also supports Bluetooth 5.0 (LE)</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">IMU Sensor</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">MPU6050</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">6-axis IMU (3-axis accelerometer + 3-axis gyroscope), I2C interface</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Motors</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">715 Brushed x4</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">7mm x 15mm coreless brushed motors, ESP32 PWM direct drive</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Power</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">3.7V 1S LiPo</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">Single-cell LiPo battery with charging management circuit</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Flight Controller</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Crazyflie-based</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">Based on Bitcraze Crazyflie open-source firmware (GPL 3.0)</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Framework</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">ESP-IDF v5.0</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">Espressif official SDK with FreeRTOS real-time OS</div>
             </div>
-            <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
+            <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem;">
                 <h4 style="color: var(--text-light); font-size: 0.875rem; margin-bottom: 0.5rem;">Frame</h4>
                 <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem;">Acrylic / 3D Printed</div>
                 <div style="color: var(--text-medium); font-size: 0.9rem;">~65mm wheelbase micro quadcopter, open-source STL files available</div>
@@ -63,7 +63,7 @@ import { LINKS } from '../config';
         </div>
 
         <h2 style="margin: 2rem 0 1rem;">Flight Modes</h2>
-        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem;">
+        <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; margin-bottom: 2rem;">
             <table style="width: 100%; border-collapse: collapse;">
                 <thead style="background: var(--bg-light);">
                     <tr>
@@ -127,7 +127,7 @@ Status LED:
         </ul>
 
         <h2 style="margin: 2rem 0 1rem;">Sourcing & Samples</h2>
-        <div style="background: white; border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
+        <div style="background: var(--bg-white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem; text-align: center;">
             <p style="margin-bottom: 1.5rem; color: var(--text-medium);">Ready to start your drone project? Order the official ESP32-S2 Flight Control board directly from our Alibaba.com store.</p>
             <a href={LINKS.alibaba} target="_blank" style="background: #ff6600; color: white; padding: 0.75rem 2rem; border-radius: var(--radius); font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; transition: transform 0.2s ease;">
                 <img src="https://img.alicdn.com/tfs/TB1_9LpSXXXXXbVXVXXXXXXXXXX-32-32.png" alt="Alibaba" style="width: 16px; height: 16px; filter: brightness(0) invert(1);" />
